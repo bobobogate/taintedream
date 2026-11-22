@@ -878,15 +878,15 @@ Promise.allSettled([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PR
 
 /* 創作：每張畫連到 Lilium 創作部落格 */
 const ART=[
- ["img/w4.jpg","作品 01","","https://liliumhandrawn.blogspot.com/","round glow-blue"],
- ["img/w9.jpg","作品 02","","https://liliumhandrawn.blogspot.com/","blob1 glow-warm"],
- ["img/w14.jpg","作品 03","","https://liliumhandrawn.blogspot.com/","blob2 glow-violet"],
- ["img/w17.jpg","作品 04","","https://liliumhandrawn.blogspot.com/","round glow-warm"],
- ["img/w25.jpg","作品 05","","https://liliumhandrawn.blogspot.com/","blob3 glow-violet"],
- ["img/w33.jpg","作品 06","","https://liliumhandrawn.blogspot.com/","round glow-blue"],
- ["img/w37.jpg","作品 07","","https://liliumhandrawn.blogspot.com/","blob2 glow-red"],
- ["img/w48.jpg","作品 08","","https://liliumhandrawn.blogspot.com/","blob1 glow-red"]];
-document.getElementById('gallery').innerHTML=ART.map(([s,t,d,l,c],i)=>`<a class="drift" href="${l}" target="_blank" rel="noopener"><div class="orb ${c} bob ${['','d2','d3'][i%3]}"><img src="${s}" alt="蘭的畫作" loading="lazy"></div><span class="shade"><b>${escH(t)}</b><span>${d}</span></span></a>`).join('');
+ ["img/w4.jpg","same moonlight's end","2020.11","https://liliumhandrawn.blogspot.com/2020/11/same-moonlights-end.html","round glow-blue"],
+ ["img/w9.jpg","spirit","2020.09","https://liliumhandrawn.blogspot.com/2020/09/spirit.html","blob1 glow-warm"],
+ ["img/w14.jpg","breakaway","2020.05","https://liliumhandrawn.blogspot.com/2020/05/breakaway.html","blob2 glow-violet"],
+ ["img/w17.jpg","雲集","2020.01","https://liliumhandrawn.blogspot.com/2020/01/blog-post_7.html","round glow-warm"],
+ ["img/w25.jpg","虛擬","2019.08","https://liliumhandrawn.blogspot.com/2019/08/blog-post_7.html","blob3 glow-violet"],
+ ["img/w33.jpg","繁花如何再生繁花","2019.05","https://liliumhandrawn.blogspot.com/2019/05/blog-post_4.html","round glow-blue"],
+ ["img/w37.jpg","十年","2019.01","https://liliumhandrawn.blogspot.com/2019/01/blog-post_22.html","blob2 glow-red"],
+ ["img/w48.jpg","琉璃 彩衣","2018.11","https://liliumhandrawn.blogspot.com/2018/11/blog-post_3.html","blob1 glow-red"]];
+document.getElementById('gallery').innerHTML=ART.map(([s,t,d,l,c],i)=>`<a class="drift" href="${l}" target="_blank" rel="noopener"><div class="orb ${c} bob ${['','d2','d3'][i%3]}"><img src="${s}" alt="蘭的畫作〈${escH(t)}〉" loading="lazy"></div><span class="shade"><b>${escH(t)}</b><span>${d}</span></span></a>`).join('');
 
 /* 書寫 */
 const POSTS=[
