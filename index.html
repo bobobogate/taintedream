@@ -195,6 +195,9 @@ footer a.donate{color:var(--mustard)}
 footer a.donate:hover{color:var(--star)}
 @media (min-width:901px) and (max-height:760px){.hero .hero-note.b{top:20%}}
 @media (min-width:901px){.hero .orb.ribbon,.hero .orb.stripe,.hero .orb.hills{display:none}}
+.note-link{color:inherit;text-decoration:none;border-bottom:1px dashed rgba(219,199,66,.5);transition:color .3s,border-color .3s}
+.note-link:hover{color:var(--mustard);border-color:var(--mustard)}
+.svc{scroll-margin-top:110px}
 .recruit{margin-top:44px}
 .recruit[hidden]{display:none}
 .recruit + .proj-grid{margin-top:64px}
@@ -456,7 +459,7 @@ body{margin:0}
       <h1>無限擁抱</h1>
     </div>
     <p class="hero-note a"><span class="lab">LAN／蘭的個人宇宙</span>身心探索・書寫・藝術創作。</p>
-    <p class="hero-note b"><span class="lab">正在發光</span>塔羅占卜已開放<br>BBTRS 呼吸年底前開放</p>
+    <p class="hero-note b"><span class="lab">正在發光</span><a class="note-link" href="#tarot">塔羅占卜已開放</a><br><a class="note-link" href="#bbtrs">BBTRS 呼吸年底前開放</a></p>
     <div class="hero-cta">
       <a class="pill brick lg" href="#explore">探索與服務 →</a>
       <a class="pill ghost lg" data-blog href="#writing" target="_blank" rel="noopener">走進部落格 ↗</a>
@@ -503,7 +506,7 @@ body{margin:0}
       <div class="orb round glow-warm float art-dot"><img src="img/w35.jpg" alt="蘭的禪繞畫：層層線條圍成一圈光環"></div>
     </div>
     <div class="svc-wrap">
-      <article class="svc">
+      <article class="svc" id="tarot">
         <div class="orb round moon-cut art-dot" aria-hidden="true"><img src="img/w28.jpg" alt=""></div>
         <span class="tag on">已開放</span>
         <h3>塔羅占卜</h3>
@@ -511,7 +514,7 @@ body{margin:0}
         <div class="meta"><a href="https://blog.taintedream.tw/p/lans-divination.html" target="_blank" rel="noopener">線上文字 ↗</a><span>隨喜，單題建議 NT$150 起</span><a data-ig href="#signal" target="_blank" rel="noopener">IG 私訊預約 ↗</a></div>
         <a class="pill brick sm" data-ig href="#signal" target="_blank" rel="noopener">IG 私訊預約</a>
       </article>
-      <article class="svc">
+      <article class="svc" id="bbtrs">
         <div class="orb round moon-cut art-dot" aria-hidden="true"><img src="img/w46.jpg" alt=""></div>
         <span class="tag plan">規劃中・年底前開放</span>
         <h3>BBTRS 呼吸體驗</h3>
@@ -576,7 +579,7 @@ body{margin:0}
       <ul class="posts" id="posts"></ul>
       <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px">
         <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">前往部落格 ↗</a>
-        <span style="font-size:13px;color:var(--soft)"><span class="sample" style="margin-left:0">範例</span>　下方文章暫用創作部落格的隨筆示意。</span>
+        <span id="postsNote" style="font-size:13px;color:var(--soft)" hidden></span>
       </div>
     </div>
   </section>
@@ -590,9 +593,7 @@ body{margin:0}
       <h2>想聊聊、想預約，<br>或只是想分享你的探索？</h2>
       <p style="color:var(--text)">不需要準備好答案，先說說你在想什麼就好。我會用自己的步調回覆。</p>
       <div class="ways">
-        <a class="pill brick lg" href="#signal" id="formLink">填寫表單</a>
-        <a class="pill ghost lg" id="mailLink" href="#signal">Email</a>
-        <a class="pill ghost lg" data-ig href="#signal" target="_blank" rel="noopener">Instagram ↗</a>
+        <a class="pill brick lg" data-ig href="#signal" target="_blank" rel="noopener">Instagram ↗</a>
       </div>
       <p class="addr"><span class="nw">塔羅預約請 IG 私訊</span></p>
     </div>
@@ -624,8 +625,6 @@ const SITE = {
 };
 function setLink(sel,url){document.querySelectorAll(sel).forEach(a=>{ if(url){a.href=url;} else {a.removeAttribute('target');} });}
 setLink('[data-blog]',SITE.blog); setLink('[data-ig]',SITE.ig);
-if(SITE.form){const f=document.getElementById('formLink');f.href=SITE.form;f.target='_blank';f.rel='noopener';}
-document.getElementById('mailLink').href='mailto:'+SITE.email;
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -901,7 +900,18 @@ const POSTS=[
  ["2019.01","goodbye 2018","過去一年簡直是我人生裡的文藝復興元年。","https://liliumhandrawn.blogspot.com/2019/01/goodbye-2018.html"],
  ["2018.11","二維生物","人們總以為，在時間軸線裡的自我是有著連續性的。","https://liliumhandrawn.blogspot.com/2018/11/blog-post_16.html"],
  ["2018.09","辮子","將久未用的色鉛筆整理、削好，開啟一本新的本本。","https://liliumhandrawn.blogspot.com/2018/09/blog-post_2.html"]];
-document.getElementById('posts').innerHTML=POSTS.map(([d,t,s,l])=>`<li><a href="${l}" target="_blank" rel="noopener"><span class="d">${d}</span><span class="t">${escH(t)}</span><span class="s">${escH(s)}</span></a></li>`).join('');
+function renderPosts(list,sample){
+  document.getElementById('posts').innerHTML=list.map(([d,t,s,l])=>`<li><a href="${escH(l)}" target="_blank" rel="noopener"><span class="d">${escH(d)}</span><span class="t">${escH(t)}${sample?'<span class="sample">範例</span>':''}</span><span class="s">${escH(s)}</span></a></li>`).join('');
+}
+/* 書寫：抓文章部落格中標了「featured」的文章（最多 5 篇，新到舊） */
+const FEATURED_LABEL="featured";
+if(!LIVE) renderPosts(POSTS,true);
+loadLabel(FEATURED_LABEL,5).then(list=>{
+  const note=document.getElementById('postsNote');
+  if(!list.length){ if(LIVE){renderPosts([],false); note.hidden=false; note.textContent='精選文章整理中，先到部落格逛逛吧。';} return; }
+  renderPosts(list.map(p=>[p.date,p.title,p.sum.replace(/…$/,'').slice(0,40)+(p.sum.length>40?'…':''),p.link]),false);
+  note.hidden=true;
+}).catch(()=>{ if(LIVE){ const note=document.getElementById('postsNote'); note.hidden=false; note.textContent='暫時讀不到部落格文章，請直接前往部落格。'; } });
 setTimeout(()=>{size(); if(reduce) draw(0);},300);
 
 
