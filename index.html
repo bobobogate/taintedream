@@ -97,11 +97,11 @@ main,header,footer{position:relative;z-index:1}
 .bob.d3{animation-duration:23s;animation-delay:-9s}
 
 /* hero */
-.hero{--v:min(58vw,640px,max(340px,calc(100svh - 210px)));position:relative;min-height:max(600px,100svh);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:hidden}
+.hero{--v:min(66.7vw,736px,max(360px,calc(100svh - 170px)));position:relative;min-height:max(600px,100svh);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:hidden}
 .hero .vortex{left:50%;top:51%;width:var(--v);aspect-ratio:1;margin-left:calc(var(--v)/-2);margin-top:calc(var(--v)/-2)}
 .hero .vortex img{transform:scale(1.14)}
 .hero .ribbon{left:4%;top:16%;width:min(22vw,260px);aspect-ratio:1.1}
-.hero .nebula{right:3%;top:58%;width:min(24vw,290px,calc(var(--v) * .45));aspect-ratio:1}
+.hero .nebula{right:3%;top:58%;width:min(24vw,290px,calc(var(--v) * .39));aspect-ratio:1}
 .hero .hills{left:5%;top:47%;width:min(13vw,150px);aspect-ratio:1}
 .hero .stripe{right:23%;top:11%;width:min(9vw,118px);aspect-ratio:1}
 .hero-title{position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);z-index:3;text-align:center;width:min(92vw,900px);pointer-events:none}
@@ -794,7 +794,7 @@ addEventListener('pointerup',end);addEventListener('pointercancel',end);addEvent
 /* ===== 企劃：讀取 Blogger 上標了「企劃中」「已完結」的文章 =====
    之後只要改 BLOG 成蘭的部落格網址；她發文時加上對應標籤，首頁就會自動更新。 */
 const PROJECTS = {
-  BLOG: SITE.blog || "https://liliumhandrawn.blogspot.com",
+  BLOG: (SITE.blog || "https://liliumhandrawn.blogspot.com").replace(/\/+$/,""),
   CALL: "徵人中",
   ON: "企劃中",
   DONE: "已完結",
@@ -866,9 +866,13 @@ function renderProjects(call,on,done,sample){
   if(sample) note.innerHTML='<span class="sample" style="margin-left:0">範例</span>　預覽版讀不到部落格，先顯示範例。網站放上正式網址後，這裡會自動顯示部落格中標了「'+escH(PROJECTS.CALL)+'」「'+escH(PROJECTS.ON)+'」「'+escH(PROJECTS.DONE)+'」的文章。';
 }
 renderProjects(SAMPLE_CALL,SAMPLE_ON,SAMPLE_DONE,true);
-Promise.all([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PROJECTS.DONE)])
-  .then(([call,on,done])=>{ if(SITE.blog) renderProjects(call,on,done,false); })
-  .catch(()=>{/* keep samples */});
+Promise.allSettled([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PROJECTS.DONE)])
+  .then(r=>{
+    if(!SITE.blog) return;
+    if(r.every(x=>x.status!=="fulfilled")) return; /* 讀不到部落格：保留範例 */
+    const v=r.map(x=>x.status==="fulfilled"?x.value:[]);
+    renderProjects(v[0],v[1],v[2],false);
+  });
 
 /* 創作：每張畫連到 Lilium 創作部落格 */
 const ART=[
