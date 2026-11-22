@@ -798,7 +798,7 @@ const PROJECTS = {
   CALL: "徵人中",
   ON: "企劃中",
   DONE: "已完結",
-  FEED: "https://taintedream.blogspot.com",   // 讀取文章用 blogspot 原網址（比自訂網域穩定）
+  FEED: "https://blog.taintedream.tw",   // 讀取文章的網址（blogspot 會自動轉到這裡）
   MAX: 6,
   MAX_DONE: 20
 };
@@ -867,11 +867,19 @@ function renderProjects(call,on,done,sample){
   note.hidden=!sample;
   if(sample) note.innerHTML='<span class="sample" style="margin-left:0">範例</span>　預覽版讀不到部落格，先顯示範例。網站放上正式網址後，這裡會自動顯示部落格中標了「'+escH(PROJECTS.CALL)+'」「'+escH(PROJECTS.ON)+'」「'+escH(PROJECTS.DONE)+'」的文章。';
 }
-renderProjects(SAMPLE_CALL,SAMPLE_ON,SAMPLE_DONE,true);
+/* 正式網站（taintedream.tw 等）不顯示範例；只有預覽版讀不到部落格時才顯示範例 */
+const LIVE = /(^|\.)taintedream\.tw$|pages\.dev$|workers\.dev$|github\.io$/.test(location.hostname);
+if(!LIVE) renderProjects(SAMPLE_CALL,SAMPLE_ON,SAMPLE_DONE,true);
 Promise.allSettled([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PROJECTS.DONE,PROJECTS.MAX_DONE)])
   .then(r=>{
-    if(!SITE.blog) return;
-    if(r.every(x=>x.status!=="fulfilled")) return; /* 讀不到部落格：保留範例 */
+    if(r.every(x=>x.status!=="fulfilled")){
+      if(LIVE){
+        renderProjects([],[],[],false);
+        const note=document.getElementById('feedNote'); note.hidden=false;
+        note.innerHTML='暫時讀不到部落格文章，請直接到 <a href="'+escH(PROJECTS.BLOG)+'" target="_blank" rel="noopener" style="color:var(--mustard)">部落格</a> 查看。';
+      }
+      return; /* 預覽版：保留範例 */
+    }
     const v=r.map(x=>x.status==="fulfilled"?x.value:[]);
     renderProjects(v[0],v[1],v[2],false);
   });
