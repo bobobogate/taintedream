@@ -218,6 +218,10 @@ footer a.donate:hover{color:var(--star)}
 /* orbit: project + writing */
 .orbit{position:relative;max-width:1180px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 120px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,100px);align-items:start}
 .orbit > *{min-width:0}
+#writing{grid-template-columns:1fr;gap:56px}
+#writing > .shade{max-width:760px}
+#writing .project{padding-top:0;margin-left:30px}
+#writing .project > div{margin-top:0!important}
 .project{position:relative;padding-top:20px}
 .project .orb{position:relative;width:min(100%,360px);aspect-ratio:1}
 .project .ring{position:absolute;left:-30px;top:-10px;width:min(calc(100% + 60px),420px);aspect-ratio:1;border:1px dashed rgba(219,199,66,.35);border-radius:50%;pointer-events:none}
@@ -565,13 +569,6 @@ body{margin:0}
 
   <!-- 書寫 -->
   <section class="orbit" id="writing">
-    <div class="project">
-      <span class="eyebrow">蘭的畫作</span>
-      <div style="position:relative;margin-top:28px">
-        <div class="ring" aria-hidden="true"></div>
-        <div class="orb round glow-warm" style="position:relative" data-depth=".15"><img src="img/w31.jpg" alt="蘭的禪繞畫：線條與花紋旋向中心的貝殼"></div>
-      </div>
-    </div>
     <div class="shade">
       <span class="eyebrow sec-title">書寫</span>
       <h2 class="big">部落格精選</h2>
@@ -580,6 +577,12 @@ body{margin:0}
       <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px">
         <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">前往部落格 ↗</a>
         <span id="postsNote" style="font-size:13px;color:var(--soft)" hidden></span>
+      </div>
+    </div>
+    <div class="project">
+      <div style="position:relative;margin-top:28px">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="orb round glow-warm" style="position:relative" data-depth=".15"><img src="img/w31.jpg" alt="蘭的禪繞畫：線條與花紋旋向中心的貝殼"></div>
       </div>
     </div>
   </section>
@@ -602,7 +605,7 @@ body{margin:0}
 
 <footer>
   <div class="row">
-    <span>© 2026 無限擁抱 Infinite Embrace・網站上的畫作皆為蘭的原創作品</span>
+    <span>© 2026 無限擁抱 taintedream.tw・網站上的畫作皆為蘭的原創作品</span>
     <nav aria-label="頁尾"><a href="#about">關於我</a><a href="#explore">探索與服務</a><a href="#projects">企劃</a><a href="#art">創作</a><a data-blog href="#writing" target="_blank" rel="noopener">個人部落格 ↗</a><a href="https://liliumhandrawn.blogspot.com/" target="_blank" rel="noopener">Lilium 創作部落格 ↗</a><a href="#signal">聯絡</a><a href="https://open.spotify.com/playlist/23o52qv6rUxI4PTus3ruwh" target="_blank" rel="noopener">音樂 ↗</a><a class="donate" href="https://taintedream.bobaboba.me/" target="_blank" rel="noopener">抖內 ↗</a></nav>
   </div>
 </footer>
