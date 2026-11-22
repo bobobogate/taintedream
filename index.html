@@ -1,0 +1,929 @@
+<title>無限擁抱</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap">
+<style>
+/* Layout: floating universe — one dark night sky; paintings float as orbs/blobs at different depths, text sits beside them like constellation notes. Single committed dark look. */
+:root{
+  --sky:#1F1C19;          /* deep purple night */
+  --sky-2:#2B2723;
+  --star:#F3EEE2;
+  --text:#E6DFD2;
+  --soft:#B4AC9E;
+  --line:rgba(230,223,210,.22);
+  --violet:#574F92;
+  --violet-glow:rgba(120,108,210,.45);
+  --camel:#C5A676;
+  --mustard:#DBC742;
+  --brick:#C95757;
+  --charcoal:#44413C;
+  --panel:rgba(44,40,35,.7);
+  --f-display:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --f-zh-display:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--sky);overflow-x:clip}
+body{background:var(--sky);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.85;letter-spacing:.03em;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--sky)}
+a{color:inherit}
+img{max-width:100%;display:block}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+:focus-visible{outline:2px solid var(--mustard);outline-offset:4px;border-radius:8px}
+
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.nebula-bg{position:fixed;inset:-20%;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(45% 35% at 20% 25%,rgba(197,166,118,.20),transparent 70%),
+   radial-gradient(35% 28% at 85% 60%,rgba(201,87,87,.14),transparent 70%),
+   radial-gradient(30% 25% at 40% 90%,rgba(219,199,66,.10),transparent 70%)}
+main,header,footer{position:relative;z-index:1}
+
+/* nav */
+.nav-shell{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:30;padding-top:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(31,28,25,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:9999px;padding:7px 7px 7px 18px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-zh-display);font-size:18px;letter-spacing:.1em;white-space:nowrap;color:var(--star)}
+.core{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,#fff 0 10%,#7fd3ff 18%,#2a6fb0 30%,#5a1a1f 48%,#8c2a2a 68%,rgba(185,196,106,.9) 88%,transparent 90%);box-shadow:0 0 14px rgba(127,211,255,.6)}
+.links{display:flex;gap:2px;margin:0 auto;list-style:none;padding:0}
+.links a{display:block;text-decoration:none;font-size:15px;padding:6px 12px;border-radius:9999px;letter-spacing:.08em;color:var(--text)}
+.links a:hover{background:rgba(255,255,255,.07);color:var(--mustard)}
+.pill{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:9999px;font-family:var(--f-body);font-weight:500;letter-spacing:.08em;line-height:1.2;cursor:pointer;border:1.5px solid transparent;transition:transform .2s, box-shadow .2s}
+.pill:hover{transform:translateY(-2px)}
+.pill.sm{padding:8px 16px;font-size:14px}
+.pill.lg{padding:13px 26px;font-size:16px}
+.pill.brick{background:var(--brick);color:#fff;box-shadow:0 0 0 0 rgba(201,87,87,.0)}
+.pill.brick:hover{box-shadow:0 0 28px rgba(201,87,87,.45)}
+.pill.ghost{border-color:rgba(230,223,210,.5);color:var(--star);background:rgba(31,28,25,.45)}
+.pill.ghost:hover{border-color:var(--mustard);color:var(--mustard)}
+.social{display:flex;gap:2px;align-items:center}
+.social a{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:var(--text);transition:color .3s,background .3s}
+.social a:hover{color:var(--mustard);background:rgba(255,255,255,.07)}
+.social svg{width:19px;height:19px}
+.menu-btn{display:none;margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--star);border-radius:9999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer}
+@media (max-width:980px){
+  .links{display:none;position:absolute;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));top:70px;flex-direction:column;background:rgba(31,28,25,.95);border:1px solid var(--line);border-radius:22px;padding:10px}
+  .links.open{display:flex}
+  .links a{padding:11px 14px;font-size:16px}
+  .menu-btn{display:block}
+  .social{margin-left:auto}
+  .social + .pill + .pill + .menu-btn,.menu-btn{margin-left:4px}
+  .nav .pill.sm{display:none}
+}
+
+/* shapes */
+.orb{position:absolute;overflow:hidden;will-change:transform}
+.orb img{width:100%;height:100%;object-fit:cover}
+.round{border-radius:54% 46% 50% 50% / 47% 54% 46% 53%}
+.blob1{border-radius:62% 38% 55% 45% / 48% 60% 40% 52%}
+.blob2{border-radius:42% 58% 38% 62% / 55% 40% 60% 45%}
+.blob3{border-radius:50% 50% 46% 54% / 62% 58% 42% 38%}
+.capsule{border-radius:46% 54% 42% 58% / 55% 45% 55% 45%}
+.glow-blue{box-shadow:0 0 120px 20px rgba(80,170,230,.22),0 0 0 1px rgba(255,255,255,.08)}
+.glow-violet{box-shadow:0 0 90px 10px var(--violet-glow)}
+.glow-warm{box-shadow:0 0 80px 6px rgba(219,199,66,.18)}
+.glow-red{box-shadow:0 0 80px 6px rgba(201,87,87,.25)}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes spin{to{rotate:360deg}}
+.bob{animation:drift 16s ease-in-out infinite}
+.bob.d2{animation-duration:19s;animation-delay:-5s}
+.bob.d3{animation-duration:23s;animation-delay:-9s}
+
+/* hero */
+.hero{--v:min(58vw,640px,max(340px,calc(100svh - 210px)));position:relative;min-height:max(600px,100svh);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:hidden}
+.hero .vortex{left:50%;top:51%;width:var(--v);aspect-ratio:1;margin-left:calc(var(--v)/-2);margin-top:calc(var(--v)/-2)}
+.hero .vortex img{transform:scale(1.14)}
+.hero .ribbon{left:4%;top:16%;width:min(22vw,260px);aspect-ratio:1.1}
+.hero .nebula{right:3%;top:58%;width:min(24vw,290px,calc(var(--v) * .45));aspect-ratio:1}
+.hero .hills{left:5%;top:47%;width:min(13vw,150px);aspect-ratio:1}
+.hero .stripe{right:23%;top:11%;width:min(9vw,118px);aspect-ratio:1}
+.hero-title{position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);z-index:3;text-align:center;width:min(92vw,900px);pointer-events:none}
+.hero-title h1{font-family:var(--f-zh-display);font-weight:600;font-size:clamp(48px,min(calc(11vw - 30pt),calc(var(--v) * .17)),calc(150px - 30pt));line-height:1;letter-spacing:.14em;color:var(--star);text-shadow:0 2px 40px rgba(0,0,0,.65),0 0 2px rgba(0,0,0,.6);margin-right:-.14em}
+.hero-title .en{display:block;margin-top:14px;font-family:var(--f-display);font-weight:300;font-size:clamp(18px,2.4vw,28px);letter-spacing:.06em;color:var(--mustard);text-shadow:0 1px 20px rgba(0,0,0,.8)}
+.hero-note{text-shadow:0 0 22px rgba(31,28,25,1),0 0 10px rgba(31,28,25,1),0 0 3px rgba(31,28,25,1);position:absolute;z-index:3;max-width:290px;font-size:15px;line-height:1.8;color:var(--text)}
+.hero-note.a{left:max(24px,6%);bottom:max(64px,11%)}
+.hero-note.b{right:max(24px,5%);top:22%;text-align:right;max-width:220px}
+.hero-note .lab{display:block;font-size:12px;letter-spacing:.24em;color:var(--camel);margin-bottom:8px}
+.hero-cta{position:absolute;z-index:3;left:50%;bottom:6%;transform:translateX(-50%);display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:92vw}
+.scroll-hint{position:absolute;z-index:3;right:max(24px,5%);bottom:6%;font-size:12px;letter-spacing:.3em;color:var(--soft);writing-mode:vertical-rl}
+
+/* constellation lines */
+svg.lines{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+svg.lines path{fill:none;stroke:rgba(219,199,66,.45);stroke-width:1;stroke-dasharray:2 6}
+svg.lines circle{fill:var(--mustard)}
+
+/* galaxies (three doors) */
+.galaxies{position:relative;height:1180px;max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.intro{position:absolute;left:6%;top:40px;max-width:420px;z-index:3}
+.eyebrow{font-size:12px;letter-spacing:.28em;color:var(--camel)}
+.big{font-family:var(--f-zh-display);font-size:clamp(30px,4vw,46px);line-height:1.35;color:var(--star);margin-top:10px}
+.door{position:absolute;display:block;text-decoration:none;z-index:3}
+.door .orb{position:relative;transition:transform .5s ease, box-shadow .5s ease}
+.door:hover .orb{transform:scale(1.04)}
+.door .note{position:absolute;width:250px;display:grid;gap:6px;text-shadow:0 0 22px rgba(31,28,25,1),0 0 10px rgba(31,28,25,1),0 0 3px rgba(31,28,25,1)}
+.door .note h3{font-family:var(--f-zh-display);font-size:30px;color:var(--star);letter-spacing:.12em}
+.door .note .en{font-family:var(--f-display);font-size:15px;color:var(--mustard);letter-spacing:.04em}
+.door .note p{font-size:15px;color:var(--text)}
+.door .note .go{font-size:14px;color:var(--mustard);letter-spacing:.1em}
+.door:hover .note h3{color:var(--mustard)}
+.d-explore{left:44%;top:110px}
+.d-explore .orb{width:400px;aspect-ratio:1}
+.d-explore .note{left:430px;top:150px}
+.d-art{left:6%;top:560px}
+.d-art .orb{width:330px;aspect-ratio:1.15}
+.d-art .note{left:350px;top:200px}
+.d-write{left:62%;top:720px}
+.d-write .orb{width:300px;aspect-ratio:.95}
+.d-write .note{left:-40px;top:330px}
+
+/* service panel */
+.services{position:relative;max-width:1180px;margin:0 auto;padding:120px max(16px,env(safe-area-inset-right,0px)) 120px max(16px,env(safe-area-inset-left,0px))}
+.svc-wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+.svc{position:relative;background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:28px;padding:32px 32px 30px;display:grid;gap:12px;align-content:start;overflow:hidden}
+.svc .moon{position:absolute;right:-40px;top:-40px;width:150px;aspect-ratio:1;opacity:.85}
+.svc h3{font-family:var(--f-zh-display);font-size:28px;color:var(--star);letter-spacing:.08em;padding-right:90px}
+.svc .tag{display:inline-block;width:fit-content;font-size:13px;letter-spacing:.12em;padding:2px 12px;border-radius:9999px;font-weight:500}
+.tag.on{background:var(--mustard);color:#24212F}
+.tag.plan{border:1px solid var(--camel);color:var(--camel)}
+.svc ul{list-style:none;padding:0;margin:4px 0 6px;display:grid;gap:4px;font-size:15px;color:var(--soft)}
+.svc ul li::before{content:"✦";color:var(--mustard);margin-right:10px;font-size:11px}
+.svc .pill{width:fit-content}
+.sample{display:inline-block;font-size:11px;letter-spacing:.1em;padding:0 8px;border-radius:9999px;border:1px dashed var(--brick);color:#F09A9A;vertical-align:middle;margin-left:8px;line-height:1.8;font-weight:500}
+.disclaimer{font-size:13px;color:var(--soft);margin-top:28px}
+
+/* projects: fed by Blogger labels */
+.projects{position:relative;max-width:1180px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 120px max(16px,env(safe-area-inset-left,0px))}
+.projects .big,.proj-h,.done-list,.feed-note,.empty{text-shadow:0 0 18px rgba(31,28,25,1),0 0 6px rgba(31,28,25,1)}
+.proj-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(36px,6vw,80px);margin-top:44px;align-items:start}
+.proj-grid > *{min-width:0}
+.proj-h{display:flex;align-items:center;gap:12px;font-family:var(--f-zh-display);font-size:24px;color:var(--star);margin-bottom:22px;letter-spacing:.1em}
+.proj-h .n{font-family:var(--f-body);font-size:13px;color:var(--soft);letter-spacing:.1em}
+.on-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.pcard{position:relative;display:grid;gap:10px;text-decoration:none;background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:28px;padding:22px 22px 24px;transition:border-color .3s,transform .3s}
+.pcard:hover{border-color:var(--mustard);transform:translateY(-3px)}
+.pcard{overflow:hidden;min-height:420px;align-content:end;padding:40px 40px 64px!important;border-radius:58% 42% 52% 48% / 46% 54% 46% 54%!important;text-align:center;justify-items:center}
+.pcard p{font-size:13px!important;line-height:1.75;letter-spacing:.02em;text-wrap:pretty}
+.pcard:nth-child(2n){border-radius:44% 56% 47% 53% / 55% 45% 55% 45%!important}
+.pcard:nth-child(3n){border-radius:52% 48% 60% 40% / 42% 58% 42% 58%!important}
+.pcard > *:not(.pimg){position:relative;z-index:1;text-shadow:0 1px 12px rgba(31,28,25,.95),0 0 3px rgba(31,28,25,.9)}
+.pcard .pimg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(31,28,25,0) 25%,rgba(31,28,25,.55) 55%,rgba(31,28,25,.92))}
+.pcard .pimg{position:absolute;inset:0;border-radius:inherit;overflow:hidden;margin:0;background:radial-gradient(circle,#fff 0 6%,#7fd3ff 14%,#574F92 40%,#2a1d4f 75%)}
+.pcard .pimg img{width:100%;height:100%;object-fit:cover}
+.pcard h4{margin:0;font-family:var(--f-zh-display);font-weight:400;font-size:22px;color:var(--star);line-height:1.4}
+.pcard .d{font-size:13px;color:var(--soft);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.pcard p{font-size:15px;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pcard .go{font-size:14px;color:var(--mustard);letter-spacing:.08em}
+.done-list{list-style:none;margin:0;padding:0 0 0 22px;border-left:1px dashed rgba(197,166,118,.4);display:grid;gap:22px}
+.done-list a{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center;text-decoration:none}
+.done-list .dimg{width:64px;aspect-ratio:1;border-radius:50%;overflow:hidden;opacity:.85;filter:saturate(.8);background:radial-gradient(circle,#fff 0 6%,#C5A676 16%,#574F92 45%,#2a1d4f 80%)}
+.done-list .dimg img{width:100%;height:100%;object-fit:cover}
+.done-list b{display:block;font-family:var(--f-zh-display);font-weight:400;font-size:19px;color:var(--star)}
+.done-list span.d{font-size:13px;color:var(--soft);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.done-list a:hover b{color:var(--mustard)}
+.done-list a > span{min-width:0}
+.empty{color:var(--soft);font-size:15px}
+.feed-note{margin-top:28px;font-size:13px;color:var(--text)}
+@media (max-width:900px){.proj-grid{grid-template-columns:1fr}}
+footer a.donate{color:var(--mustard)}
+footer a.donate:hover{color:var(--star)}
+@media (min-width:901px) and (max-height:760px){.hero .hero-note.b{top:20%}}
+@media (min-width:901px){.hero .orb.ribbon,.hero .orb.stripe,.hero .orb.hills{display:none}}
+.recruit{margin-top:44px}
+.recruit[hidden]{display:none}
+.recruit + .proj-grid{margin-top:64px}
+.call-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;max-width:calc((100% - 80px) * 1.25 / 2)}
+.call-list .badge{font-size:12px;letter-spacing:.14em;color:#1F1C19;background:var(--mustard);border-radius:9999px;padding:2px 12px;text-shadow:none!important}
+@media (max-width:900px){.call-list{max-width:none}}
+.ccard{position:relative;display:grid;grid-template-columns:104px 1fr;gap:22px;align-items:center;text-decoration:none;background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:28px;padding:22px 26px;box-shadow:0 0 0 1px rgba(219,199,66,.35),0 0 26px rgba(219,199,66,.08);transition:box-shadow .3s,transform .3s}
+.ccard:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--mustard),0 0 30px rgba(219,199,66,.18)}
+.ccard .cimg{width:104px;aspect-ratio:1;border-radius:54% 46% 50% 50% / 47% 54% 46% 53%;overflow:hidden;box-shadow:var(--frame);background:radial-gradient(circle,#fff 0 6%,#C5A676 16%,#574F92 45%,#2a1d4f 80%)}
+.ccard .cimg img{width:100%;height:100%;object-fit:cover}
+.ccard > span{min-width:0;display:grid;gap:6px}
+.ccard .badge{justify-self:start;font-size:12px;letter-spacing:.14em;color:#1F1C19;background:var(--mustard);border-radius:9999px;padding:2px 12px}
+.ccard b{font-family:var(--f-zh-display);font-weight:400;font-size:21px;color:var(--star);line-height:1.4}
+.ccard p{margin:0;font-size:14px;line-height:1.7;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ccard .go{font-size:14px;color:var(--mustard);letter-spacing:.08em}
+@media (max-width:600px){.ccard{grid-template-columns:76px 1fr;gap:16px;padding:18px}.ccard .cimg{width:76px}}
+
+/* orbit: project + writing */
+.orbit{position:relative;max-width:1180px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 120px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,100px);align-items:start}
+.orbit > *{min-width:0}
+.project{position:relative;padding-top:20px}
+.project .orb{position:relative;width:min(100%,360px);aspect-ratio:1}
+.project .ring{position:absolute;left:-30px;top:-10px;width:min(calc(100% + 60px),420px);aspect-ratio:1;border:1px dashed rgba(219,199,66,.35);border-radius:50%;pointer-events:none}
+.project .txt{margin-top:28px;display:grid;gap:10px;max-width:380px}
+.project h3{font-family:var(--f-zh-display);font-size:28px;color:var(--star)}
+.posts{list-style:none;padding:0;margin:24px 0 0}
+.posts li{position:relative;padding-left:34px}
+.posts li::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--line)}
+.posts li::after{content:"";position:absolute;left:2px;top:30px;width:9px;height:9px;border-radius:50%;background:var(--camel);box-shadow:0 0 12px rgba(197,166,118,.8)}
+.posts a{display:block;text-decoration:none;padding:20px 0}
+.posts .d{font-size:13px;color:var(--soft);letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.posts .t{display:block;font-family:var(--f-zh-display);font-size:22px;color:var(--star);margin-top:2px}
+.posts .s{display:block;font-size:15px;color:var(--soft)}
+.posts a:hover .t{color:var(--mustard)}
+
+/* contact */
+.signal{position:relative;text-align:center;padding:140px max(16px,env(safe-area-inset-right,0px)) 160px max(16px,env(safe-area-inset-left,0px));overflow:hidden}
+.signal .pulse{position:absolute;left:50%;top:50%;width:min(80vw,620px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(127,211,255,.18),rgba(87,79,146,.18) 40%,transparent 70%);pointer-events:none}
+.signal .pulse::before,.signal .pulse::after{content:"";position:absolute;inset:18%;border:1px solid rgba(219,199,66,.25);border-radius:50%}
+.signal .pulse::after{inset:34%;border-color:rgba(197,166,118,.3)}
+.signal .inner{position:relative;display:grid;gap:18px;justify-items:center;max-width:620px;margin:0 auto}
+.signal h2{font-family:var(--f-zh-display);font-size:clamp(30px,4.6vw,50px);line-height:1.35;color:var(--star)}
+.signal .ways{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+
+footer{border-top:1px solid var(--line);padding:40px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));}
+footer .row{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;font-size:14px;color:var(--soft)}
+footer nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--mustard)}
+
+/* tablet/mobile: universe re-flows into a vertical drift */
+@media (max-width:900px){
+  .hero{min-height:auto;padding-top:120px;padding-bottom:64px;display:grid;justify-items:center;gap:0}
+  .hero .vortex{position:relative;left:auto;top:auto;margin:0;width:min(86vw,440px)}
+  .hero-title{position:relative;left:auto;top:auto;transform:none;margin-top:calc(min(86vw,440px) * -.62);width:100%}
+  .hero .ribbon{left:-30px;top:90px;width:120px}
+  .hero .nebula{right:-34px;top:auto;bottom:auto;top:calc(120px + min(86vw,440px) - 60px);width:130px}
+  .hero .hills,.hero .stripe{display:none}
+  .hero-note{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;text-align:center!important;max-width:520px;margin-top:calc(min(86vw,440px) * .30 + 24px)}
+  .hero-note.b{display:none}
+  .hero-cta{position:relative;left:auto;bottom:auto;transform:none;margin-top:28px;width:auto}
+  .scroll-hint{display:none}
+  .galaxies{height:auto;display:grid;gap:72px;padding-top:40px;padding-bottom:40px}
+  .galaxies svg.lines{display:none}
+  .intro,.door{position:relative;left:auto!important;top:auto!important;max-width:none}
+  .door{display:grid;gap:18px}
+  .door .orb{width:min(72vw,340px)!important}
+  .door .note{position:relative;left:auto!important;top:auto!important;width:auto;text-align:left!important}
+  .d-explore{justify-self:end;text-align:right}.d-explore .note{text-align:right!important;justify-items:end}
+  .d-art{justify-self:start}
+  .d-write{justify-self:end}.d-write .note{justify-items:end;text-align:right!important}
+  .svc-wrap{grid-template-columns:1fr}
+  .orbit{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.bob,.hero .vortex img{animation:none!important}}
+
+
+/* ===== v3 additions: floating Lilium cut-outs + v2 content in A's layout ===== */
+body{margin:0}
+.float{position:absolute;z-index:2;margin:0;will-change:transform;pointer-events:none}
+.float img{width:100%;height:auto;filter:drop-shadow(0 0 26px rgba(150,140,255,.28))}
+.float .cap{position:absolute;white-space:nowrap;font-family:var(--f-display);font-size:13px;letter-spacing:.06em;color:rgba(243,238,226,.7);text-shadow:0 1px 10px rgba(31,28,25,1)}
+.hero .f-eye{left:4%;top:11%;width:clamp(90px,8.5vw,124px);rotate:-8deg}
+.hero .f-eye .cap{left:108%;top:34%}
+.hero .f-pods{left:23%;top:8%;width:clamp(52px,4.6vw,68px);rotate:14deg;opacity:.9}
+.hero .f-roots{left:12%;top:41%;width:clamp(150px,14vw,200px);rotate:4deg}
+.hero .f-roots .cap{left:62%;top:-20px}
+.hero .f-portal{right:5%;top:11%;width:clamp(140px,13vw,190px);rotate:6deg}
+.hero .f-portal .cap{right:104%;top:60%}
+.hero .f-flower{right:9%;bottom:11%;width:clamp(150px,14vw,200px);rotate:-6deg}
+.hero .f-flower .cap{right:18%;bottom:-22px}
+.hero .f-sing{right:28%;top:10%;width:clamp(56px,4.6vw,70px)}
+.hero-note.b{top:46%}
+.hero-note.a{bottom:max(56px,9%)}
+
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sec{position:relative;padding-top:120px;padding-bottom:40px}
+.lede{font-size:17px;color:var(--text);max-width:620px;margin-top:18px}
+.shade{text-shadow:0 0 30px rgba(31,28,25,1),0 0 14px rgba(31,28,25,1),0 0 6px rgba(31,28,25,1),0 0 2px rgba(31,28,25,1)}
+.shade .d,.shade .s,.shade span,.paths li,.drift span{color:var(--text)}
+.shade .eyebrow{color:var(--camel)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{display:inline-block;font-size:14px;letter-spacing:.12em;padding:5px 16px;border-radius:9999px;border:1px solid rgba(219,199,66,.45);color:var(--star);background:rgba(31,28,25,.5)}
+
+/* intro */
+.intro2{text-align:center;max-width:820px;margin:0 auto}
+.intro2 .lede{margin-left:auto;margin-right:auto}
+.intro2 .chips{justify-content:center}
+
+/* about: orb + constellation notes */
+.about{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,7vw,100px);align-items:center}
+.about > *{min-width:0}
+.about .orbwrap{position:relative;width:min(100%,400px);justify-self:center}
+.about .orbwrap .orb{position:relative;width:100%;aspect-ratio:1.05}
+.about .orbwrap .ring{position:absolute;inset:-26px -30px;border:1px dashed rgba(219,199,66,.35);border-radius:50%;pointer-events:none}
+.stars3{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:4px}
+.stars3 li{position:relative;padding:12px 0 12px 34px}
+.stars3 li::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:1px;background:repeating-linear-gradient(to bottom,rgba(219,199,66,.5) 0 2px,transparent 2px 8px)}
+.stars3 li::after{content:"";position:absolute;left:1px;top:22px;width:11px;height:11px;border-radius:50%;background:var(--mustard);box-shadow:0 0 14px rgba(219,199,66,.9)}
+.stars3 b{display:block;font-family:var(--f-zh-display);font-weight:400;font-size:22px;color:var(--star);letter-spacing:.1em}
+.stars3 p{font-size:15px;color:var(--text)}
+.values{margin-top:26px;font-size:13px;letter-spacing:.24em;color:var(--camel)}
+.values + .chips{margin-top:12px}
+
+/* explore */
+.explore-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.explore-top > *{min-width:0}
+.paths{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.paths li{font-size:16px;color:var(--soft)}
+.paths li::before{content:"✦";color:var(--mustard);margin-right:12px;font-size:12px}
+.paths b{font-family:var(--f-zh-display);font-weight:400;font-size:20px;color:var(--star);letter-spacing:.08em;margin-right:12px}
+.explore-top .float{position:relative;width:min(70%,260px);justify-self:center}
+.svc .meta{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px}
+.svc .meta a{font-size:13px;letter-spacing:.06em;color:var(--star);text-decoration:none;border:1px solid rgba(219,199,66,.45);border-radius:9999px;padding:3px 12px;transition:color .3s,border-color .3s}
+.svc .meta a:hover{color:var(--mustard);border-color:var(--mustard)}
+.svc .meta span{font-size:13px;letter-spacing:.06em;color:var(--soft);border:1px solid var(--line);border-radius:9999px;padding:3px 12px}
+.svc .moon-cut{position:absolute;right:18px;top:18px;width:74px;opacity:.9}
+.svc .moon-cut img{width:100%;filter:drop-shadow(0 0 18px rgba(150,140,255,.35))}
+
+/* art: paintings drifting as orbs */
+.art-head{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:end;justify-content:space-between}
+.sky-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:56px 40px;margin-top:60px;padding-bottom:40px}
+.drift{display:grid;gap:14px;text-decoration:none;justify-items:center;text-align:center}
+.drift .orb{position:relative;width:100%;aspect-ratio:1;transition:transform .5s ease}
+.drift:hover .orb{transform:scale(1.05)}
+.drift:nth-child(4n+2){margin-top:70px}
+.drift:nth-child(4n+3){margin-top:20px}
+.drift:nth-child(4n+4){margin-top:96px}
+.drift b{display:block;font-family:var(--f-zh-display);font-weight:400;font-size:19px;color:var(--star);letter-spacing:.06em}
+.drift span{font-size:13px;color:var(--soft);letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.drift:hover b{color:var(--mustard)}
+
+.posts .arr{display:none}
+.signal .ways .addr{font-size:14px;color:var(--soft);letter-spacing:.06em}
+.signal code{font-family:var(--f-body);color:var(--star)}
+.nw{white-space:nowrap;display:inline-block}
+.g-anim .float{transition:transform 1.1s cubic-bezier(.2,.9,.25,1)}
+.float img{-webkit-user-drag:none}
+.g-held{user-select:none;-webkit-user-select:none;cursor:grabbing}
+.hint{display:block;margin-top:10px;font-size:12px;letter-spacing:.14em;color:var(--soft)}
+.orb.float img{height:100%;filter:none}
+[style*="italic"],.en,.cap,.door .note .en{font-style:normal!important}
+.stars3 li{display:grid;grid-template-columns:88px 1fr;gap:20px;align-items:center;padding:14px 0}
+.stars3 li::before,.stars3 li::after{display:none}
+.stars3 .nimg{position:relative;display:block;width:88px;aspect-ratio:1;overflow:hidden}
+.stars3 .nimg img{width:100%;height:100%;object-fit:cover}
+.stars3 li:nth-child(2){margin-left:28px}
+.stars3 li:nth-child(3){margin-left:8px}
+.pleiades{position:absolute;left:15%;top:70px;width:min(27vw,380px);aspect-ratio:1.35;z-index:1;pointer-events:none}
+.pleiades canvas{width:100%;height:100%;display:block}
+.pleiades figcaption{position:absolute;left:52%;bottom:12%;white-space:nowrap;font-size:11px;letter-spacing:.2em;color:rgba(232,160,150,.8);text-shadow:0 0 8px rgba(31,28,25,1)}
+@media (max-width:900px){.pleiades{left:24%;top:74px;width:170px}.pleiades figcaption{display:none}}
+/* polish: one frame language — irregular circle, one warm glow, thin paper edge */
+:root{--frame:0 0 0 1.5px rgba(240,228,205,.72),0 0 64px 6px rgba(214,168,104,.24)}
+.glow-blue,.glow-violet,.glow-warm,.glow-red{box-shadow:var(--frame)!important}
+.orb{box-shadow:var(--frame)}
+.pcard{border:0!important;box-shadow:var(--frame)}
+.done-list .dimg{border-radius:56% 44% 52% 48% / 46% 55% 45% 54%;box-shadow:0 0 0 1.5px rgba(240,228,205,.72),0 0 22px 2px rgba(214,168,104,.22);opacity:1;filter:none}
+.ring{border-radius:52% 48% 55% 45% / 47% 53% 47% 53%!important}
+/* calm zones: soft dark backdrop behind text so the river and mist sit back */
+.intro2,.about > .shade,.explore-top > .shade,.art-head > div,.orbit > .shade,.signal .inner,.projects{position:relative;isolation:isolate}
+.intro2::before,.about > .shade::before,.explore-top > .shade::before,.art-head > div::before,.orbit > .shade::before,.signal .inner::before,.projects::before{content:"";position:absolute;inset:-60px -80px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(28,25,22,.62),rgba(28,25,22,.35) 60%,rgba(28,25,22,0))}
+.vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(16,14,12,.55))}
+@media (max-width:900px){.intro2::before,.about > .shade::before,.explore-top > .shade::before,.art-head > div::before,.orbit > .shade::before,.signal .inner::before,.projects::before{inset:-30px -16px}}
+/* mobile first screen: only the essentials */
+@media (max-width:900px){
+  .hero{min-height:100svh;padding-top:96px;padding-bottom:48px;align-content:center}
+  .hero .nebula,.hero .hills,.hero .stripe,.pleiades,.hero-note .hint{display:none!important}
+  .hero .vortex{width:min(88vw,420px)}
+  .hero-title{margin-top:calc(min(88vw,420px) * -.6)}
+  .hero-title h1{font-size:clamp(46px,14vw,72px)}
+  .hero .ribbon{left:auto;right:4%;top:72px;width:92px}
+  .hero-note{margin-top:calc(min(88vw,420px) * .12 + 28px);font-size:16px}
+  .hero-note .lab{margin-bottom:6px}
+  .hero-cta{margin-top:24px;gap:10px}
+  .hero-cta .pill.lg{padding:12px 22px;font-size:15px}
+}
+/* calm: no continuous floating; sections fade in once */
+.bob,.bob.d2,.bob.d3{animation:none!important}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1.1s ease,transform 1.1s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.about-eyebrow{display:block;font-size:28px;line-height:1.2;letter-spacing:.2em;margin-bottom:6px}
+.about-text{margin-top:18px;display:grid;gap:1.1em;font-size:16px;line-height:1.95;color:var(--text);max-width:640px}
+.sec-title{display:block;font-size:28px;line-height:1.3;letter-spacing:.2em;margin-bottom:6px}
+.sec-float{position:absolute;pointer-events:none;z-index:0;opacity:.85}
+.art-dot{aspect-ratio:1;height:auto}
+.svc .moon-cut.orb{width:64px;opacity:.95}
+.svc .moon-cut.orb img{height:100%;filter:none}
+
+@media (max-width:900px){
+  .hero .f-pods,.hero .f-sing,.hero .f-flower,.float .cap{display:none}
+  .hero .f-eye{left:2%;top:96px;width:64px}
+  .hero .f-portal{right:1%;top:100px;width:96px}
+  .hero .f-roots{display:none}
+  .about,.explore-top{grid-template-columns:1fr}
+  .explore-top .float{width:180px}
+  .sky-gallery{grid-template-columns:repeat(2,1fr);gap:36px 22px}
+  .drift:nth-child(odd){margin-top:0!important}.drift:nth-child(even){margin-top:48px!important}
+  .sec{padding-top:88px}
+  .nw{white-space:nowrap;display:inline-block}
+.sec-float{display:none}
+}
+</style>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="nebula-bg" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<div class="nav-shell">
+  <nav class="nav" aria-label="主選單">
+    <a class="logo" href="#top"><span class="core" aria-hidden="true"></span>無限擁抱</a>
+    <ul class="links" id="links">
+      <li><a href="#about">關於我</a></li>
+      <li><a href="#explore">探索與服務</a></li>
+      <li><a href="#projects">企劃</a></li>
+      <li><a href="#art">創作</a></li>
+      <li><a href="#writing">書寫</a></li>
+      <li><a href="#signal">聯絡</a></li>
+    </ul>
+    <span class="social"><a href="https://www.facebook.com/taintedream" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z" fill="currentColor"/></svg></a><a data-ig href="https://www.instagram.com/taintedream.with.lan/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a></span>
+    <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">部落格 ↗</a>
+    <a class="pill brick sm" href="#signal">預約</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links">選單</button>
+  </nav>
+</div>
+
+<main id="top">
+  <!-- HERO -->
+  <header class="hero">
+    <figure class="pleiades" aria-label="昴宿星團" style="margin:0"><canvas id="pleiades"></canvas></figure>
+    <div class="orb float ribbon blob1 glow-violet bob" data-depth=".35"><img src="img/w10.jpg" alt=""></div>
+    <div class="orb float stripe capsule glow-warm bob d2" data-depth=".6"><img src="img/w6.jpg" alt=""></div>
+    <div class="orb vortex round glow-blue" data-depth=".12"><img src="img/w43.jpg" alt="蘭的色鉛筆畫：黑色星洞中心發出金色的光"></div>
+    <div class="orb float nebula blob2 glow-red bob d3" data-depth=".45"><img src="img/w47.jpg" alt=""></div>
+    <div class="orb float hills round glow-violet bob d2" data-depth=".8"><img src="img/w8.jpg" alt=""></div>
+
+    <div class="hero-title">
+      <h1>無限擁抱</h1>
+    </div>
+    <p class="hero-note a"><span class="lab">LAN／蘭的個人宇宙</span>身心探索・書寫・藝術創作。</p>
+    <p class="hero-note b"><span class="lab">正在發光</span>塔羅占卜已開放<br>BBTRS 呼吸年底前開放</p>
+    <div class="hero-cta">
+      <a class="pill brick lg" href="#explore">探索與服務 →</a>
+      <a class="pill ghost lg" data-blog href="#writing" target="_blank" rel="noopener">走進部落格 ↗</a>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <section class="sec" aria-labelledby="i-title">
+    <div class="wrap intro2 shade">
+      <h2 class="big" id="i-title">嗨，我是 Lan，蘭小姐。</h2>
+      <p class="lede">喜愛追根究柢，也樂於探索難以言說的經驗。<br>持續從創作、象徵與身體經驗，探索自己與世界的無限可能。</p>
+    </div>
+  </section>
+
+  <!-- 關於我 -->
+  <section class="sec" id="about" aria-label="關於我">
+    <div class="wrap about">
+      <div class="orbwrap">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="orb blob1 glow-violet" data-depth=".15"><img src="img/w36.jpg" alt="蘭的色鉛筆畫：花瓣圍著一顆彩虹色的核心"></div>
+      </div>
+      <div class="shade">
+        <h2 class="eyebrow about-eyebrow" style="margin:0 0 6px;font-weight:400">關於我</h2>
+        <div class="about-text"><p>嗨，我是 Lan，也可以叫我蘭小姐。<br>我是一個對世界充滿好奇，喜歡觀察、思考、體驗與創作的人。</p><p>過去的專業訓練與工作經歷，讓我養成重視理論、機轉與實證的習慣，喜歡追根究柢，習慣從不同角度檢視資訊、尋找依據。然而，我同樣深深著迷於那些難以精確測量、充滿主觀性與個人色彩的生命經驗。</p><p>多年來，我陸續接觸塔羅、占卜、人類圖，自由繪畫、自動書寫到禪繞畫，以及生物能呼吸等不同領域，從象徵、藝術、身體與意識等角度，持續探索自己與世界。我也透過繪畫、手作及各種企劃，讓腦海中的想法以不同形式呈現。<br>我喜歡不同知識與經驗之間的碰撞，也喜歡將看似不相關的事物連結起來。探索不一定是為了尋找某個標準答案，有時只是因為好奇，想看看還有什麼可能。</p><p>經營個人部落格十幾年，書寫是我長久以來整理經驗與思緒的方式。<br>「無限擁抱」最初只是因為喜歡的一首同名歌曲，而被拿來當作部落格的名字。<br>這些年來，它又陸續與 Free Hugs 的善意，以及理解、接納自己的體會產生呼應。<br>名字沒有變，意義卻隨著經歷慢慢豐富起來。</p><p>如今，我將「無限擁抱」重新整理，成為我持續探索、實踐與創作的空間。<br>在這裡，我分享自己的經驗與思考，也期待與同樣對生命充滿好奇的人相遇。</p></div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- 探索與服務 -->
+  <section class="services" id="explore" aria-labelledby="s-title">
+    <div class="explore-top">
+      <div class="shade">
+        <span class="eyebrow sec-title">探索與服務</span>
+        <h2 class="big" id="s-title">十幾年，一路走過的探索途徑</h2>
+        <ul class="paths">
+          <li><b>個人部落格</b>十幾年的生活與思考紀錄</li>
+          <li><b>塔羅與占卜</b>現在提供的線上文字占卜</li>
+          <li><b>人類圖</b>理解、接納自身的設計</li>
+          <li><b>身體工作</b>BBTRS 呼吸體驗規劃中</li>
+          <li><b>藝術創作</b>抽象畫、禪繞畫與手作</li>
+        </ul>
+      </div>
+      <div class="orb round glow-warm float art-dot"><img src="img/w35.jpg" alt="蘭的禪繞畫：層層線條圍成一圈光環"></div>
+    </div>
+    <div class="svc-wrap">
+      <article class="svc">
+        <div class="orb round moon-cut art-dot" aria-hidden="true"><img src="img/w28.jpg" alt=""></div>
+        <span class="tag on">已開放</span>
+        <h3>塔羅占卜</h3>
+        <p>以牌面作為對話的起點，陪你把問題看得更清楚。<span class="sample">範例</span></p>
+        <div class="meta"><a href="https://taintedream.blogspot.com/p/lans-divination.html" target="_blank" rel="noopener">線上文字 ↗</a><span>隨喜，單題建議 NT$150 起</span><a data-ig href="#signal" target="_blank" rel="noopener">IG 私訊預約 ↗</a></div>
+        <a class="pill brick sm" data-ig href="#signal" target="_blank" rel="noopener">IG 私訊預約</a>
+      </article>
+      <article class="svc">
+        <div class="orb round moon-cut art-dot" aria-hidden="true"><img src="img/w46.jpg" alt=""></div>
+        <span class="tag plan">規劃中・年底前開放</span>
+        <h3>BBTRS 呼吸體驗</h3>
+        <p>透過呼吸回到身體。預計先以體驗或隨喜方式提供，價格與預約細節之後公布。</p>
+        <div class="meta"><span>一對一線上</span><span>約 90 分鐘（含諮詢）</span></div>
+        <a class="pill ghost sm" href="#signal">開放時通知我</a>
+      </article>
+    </div>
+    <p class="disclaimer">身心探索是認識自己的途徑之一，不取代醫療或心理專業，也沒有哪一種方法是萬能解答。</p>
+  </section>
+
+  <!-- 企劃 (Blogger labels) -->
+  <section class="projects" id="projects" aria-labelledby="p-title">
+    <span class="eyebrow sec-title">企劃</span>
+    <h2 class="big" id="p-title">我發起的主題活動</h2>
+    <div class="recruit" id="recruit">
+      <h3 class="proj-h">徵人中 <span class="n" id="callCount"></span></h3>
+      <div class="call-list" id="callList"><p class="empty">讀取中…</p></div>
+    </div>
+    <div class="proj-grid">
+      <div>
+        <h3 class="proj-h">企劃中 <span class="n" id="onCount"></span></h3>
+        <div class="on-list" id="onList"><p class="empty">讀取中…</p></div>
+      </div>
+      <div>
+        <h3 class="proj-h">已完結 <span class="n" id="doneCount"></span></h3>
+        <ol class="done-list" id="doneList"><li class="empty">讀取中…</li></ol>
+      </div>
+    </div>
+    <p class="feed-note" id="feedNote" hidden></p>
+  </section>
+
+  <!-- 創作 -->
+  <section class="sec" id="art" aria-labelledby="c-title">
+    <div class="orb round float sec-float art-dot" aria-hidden="true" style="right:2%;top:40px;width:120px"><img src="img/w39.jpg" alt=""></div>
+    <div class="wrap">
+      <div class="art-head shade">
+        <div>
+          <span class="eyebrow sec-title">創作</span>
+          <h2 class="big" id="c-title">畫進個人宇宙</h2>
+          <p class="lede">抽象畫、禪繞畫、手作與其他藝術創作。每一件都連到 Lilium 創作部落格，看完整的圖與文字。</p>
+        </div>
+        <a class="pill ghost lg" href="https://liliumhandrawn.blogspot.com/" target="_blank" rel="noopener">Lilium 創作部落格 ↗</a>
+      </div>
+      <div class="sky-gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- 書寫 -->
+  <section class="orbit" id="writing">
+    <div class="project">
+      <span class="eyebrow">蘭的畫作</span>
+      <div style="position:relative;margin-top:28px">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="orb round glow-warm" style="position:relative" data-depth=".15"><img src="img/w31.jpg" alt="蘭的禪繞畫：線條與花紋旋向中心的貝殼"></div>
+      </div>
+    </div>
+    <div class="shade">
+      <span class="eyebrow sec-title">書寫</span>
+      <h2 class="big">部落格精選</h2>
+      <p class="lede">完整的文章都在我的部落格，這裡挑幾篇想讓你先讀的。</p>
+      <ul class="posts" id="posts"></ul>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px">
+        <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">前往部落格 ↗</a>
+        <span style="font-size:13px;color:var(--soft)"><span class="sample" style="margin-left:0">範例</span>　下方文章暫用創作部落格的隨筆示意。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 聯絡 -->
+  <section class="signal" id="signal">
+    <div class="pulse" aria-hidden="true"></div>
+    <div class="orb round float sec-float art-dot" aria-hidden="true" style="left:8%;top:22%;width:150px"><img src="img/w23.jpg" alt=""></div>
+    <div class="inner shade">
+      <span class="eyebrow sec-title">聯絡</span>
+      <h2>想聊聊、想預約，<br>或只是想分享你的探索？</h2>
+      <p style="color:var(--text)">不需要準備好答案，先說說你在想什麼就好。我會用自己的步調回覆。</p>
+      <div class="ways">
+        <a class="pill brick lg" href="#signal" id="formLink">填寫表單</a>
+        <a class="pill ghost lg" id="mailLink" href="#signal">Email</a>
+        <a class="pill ghost lg" data-ig href="#signal" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+      <p class="addr"><span class="nw">塔羅預約請 IG 私訊</span></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="row">
+    <span>© 2026 無限擁抱 Infinite Embrace・網站上的畫作皆為蘭的原創作品</span>
+    <nav aria-label="頁尾"><a href="#about">關於我</a><a href="#explore">探索與服務</a><a href="#projects">企劃</a><a href="#art">創作</a><a data-blog href="#writing" target="_blank" rel="noopener">個人部落格 ↗</a><a href="https://liliumhandrawn.blogspot.com/" target="_blank" rel="noopener">Lilium 創作部落格 ↗</a><a href="#signal">聯絡</a><a href="https://open.spotify.com/playlist/23o52qv6rUxI4PTus3ruwh" target="_blank" rel="noopener">音樂 ↗</a><a class="donate" href="https://taintedream.bobaboba.me/" target="_blank" rel="noopener">抖內 ↗</a></nav>
+  </div>
+</footer>
+<script>
+/* 進入網頁一律從最上方開始，不延續上次的捲動位置或 #錨點 */
+(function(){
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+  const top=()=>window.scrollTo(0,0);
+  top(); document.addEventListener('DOMContentLoaded',top); window.addEventListener('load',()=>{top(); setTimeout(top,60);});
+  window.addEventListener('pageshow',e=>{ if(e.persisted) top(); });
+})();
+/* ======== 網站設定：上線前把【待補】換成真實資料 ======== */
+const SITE = {
+  blog: "https://taintedream.blogspot.com/",   // 個人部落格
+  ig: "https://www.instagram.com/taintedream.with.lan/",
+  igHandle: "@taintedream.with.lan",
+  email: "hello@example.com",
+  form: ""             // 【待補】表單網址（例如 Google 表單）
+};
+function setLink(sel,url){document.querySelectorAll(sel).forEach(a=>{ if(url){a.href=url;} else {a.removeAttribute('target');} });}
+setLink('[data-blog]',SITE.blog); setLink('[data-ig]',SITE.ig);
+if(SITE.form){const f=document.getElementById('formLink');f.href=SITE.form;f.target='_blank';f.rel='noopener';}
+document.getElementById('mailLink').href='mailto:'+SITE.email;
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* star river: an S-shaped stream of iridescent particles flowing down the whole page */
+const cv=document.getElementById('stars'), cx=cv.getContext('2d');
+let W=0,H=0,DH=0,parts=[],lines=[],dust=[],fog=[],fogL=[];
+// deep blue puff sprite for the left-side mist
+const bpuff=document.createElement('canvas');bpuff.width=bpuff.height=256;
+{const g=bpuff.getContext('2d');const r=g.createRadialGradient(128,128,0,128,128,128);r.addColorStop(0,'rgba(92,66,40,1)');r.addColorStop(.45,'rgba(78,56,34,.6)');r.addColorStop(.8,'rgba(60,44,28,.18)');r.addColorStop(1,'rgba(60,44,28,0)');g.fillStyle=r;g.fillRect(0,0,256,256);}
+// soft white puff sprite for the mist layer
+const puff=document.createElement('canvas');puff.width=puff.height=256;
+{const g=puff.getContext('2d');const r=g.createRadialGradient(128,128,0,128,128,128);r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(.35,'rgba(250,240,225,.5)');r.addColorStop(.7,'rgba(235,220,200,.13)');r.addColorStop(1,'rgba(235,220,200,0)');g.fillStyle=r;g.fillRect(0,0,256,256);}
+const WARM=['243,232,205','243,232,205','219,199,66','219,199,66','197,166,118','230,190,140'];
+const PAL=['255,255,255','140,220,255','120,160,255','190,150,255','255,170,220','255,214,140','219,199,66','160,255,220'];
+const pick=()=>PAL[Math.floor(Math.random()*PAL.length)];
+function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283*v);}
+// river centre and half-width as functions of document y
+// The star river is the page's visual guide: it threads past each section heading, from the hero down to the contact section, and ends there.
+// x positions (fraction of width) where the river passes each section: [desktop, mobile]
+const RIVER={intro:[.80,.90],about:[.45,.08],explore:[.66,.92],projects:[.06,.08],art:[.90,.92],writing:[.44,.08]};
+let RX=null,WP=[],END=0,TOPY=0,DIMY=0;const STEP=8;
+// below the site name at the top, the river is fainter and has fewer strands
+const DIM=.42;
+const dimAt=y=>y<=TOPY?1:y>=DIMY?DIM:1-(1-DIM)*((y-TOPY)/(DIMY-TOPY));
+function buildRiver(){
+  const mob=W<=900, pts=[], top=el=>el.getBoundingClientRect().top+scrollY;
+  const hero=document.querySelector('.hero'); const hb=top(hero)+hero.offsetHeight;
+  const ht=document.querySelector('.hero-title'); TOPY=top(ht)+ht.offsetHeight; DIMY=Math.max(TOPY+200,hb);
+  pts.push([0,mob?.86:.82]); pts.push([hb*.55,mob?.9:.78]);
+  WP=[];
+  const secs=[['intro',document.querySelector('main > section.sec:not([id])')],['about',document.getElementById('about')],['explore',document.getElementById('explore')],['projects',document.getElementById('projects')],['art',document.getElementById('art')],['writing',document.getElementById('writing')]];
+  for(const [k,el] of secs){ if(!el) continue; const h=el.querySelector('h2')||el; const y=top(h)+h.offsetHeight/2; const x=RIVER[k][mob?1:0]; pts.push([y,x]); WP.push([y,x]); }
+  const sig=document.getElementById('signal'); const sy0=top(sig)+sig.offsetHeight*.5; pts.push([sy0,.5]); WP.push([sy0,.5]); END=sy0;
+  pts.push([sy0+400,.5]);
+  RX=new Float32Array(Math.ceil((END+400)/STEP)+2);
+  for(let i=0;i<RX.length;i++){const y=i*STEP;let j=0;while(j<pts.length-2&&pts[j+1][0]<y)j++;
+    const p0=pts[Math.max(0,j-1)][1],p1=pts[j][1],p2=pts[j+1][1],p3=pts[Math.min(pts.length-1,j+2)][1];
+    const t=Math.min(1,Math.max(0,(y-pts[j][0])/((pts[j+1][0]-pts[j][0])||1)));const t2=t*t,t3=t2*t;
+    RX[i]=W*(.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3));}
+}
+const cxAt=y=>{if(!RX)return W*.8;const i=Math.max(0,Math.min(RX.length-1,Math.round(y/STEP)));return RX[i]+W*.012*Math.sin(y/170);};
+const taper=y=>y>=END?0:Math.pow(Math.min(1,(END-y)/420),.6);
+const hwAt=y=>Math.max(W<=900?38:70,W*(.085+.02*Math.sin(y/420)))*Math.max(.05,taper(y));
+// how strongly the river lights up at y: brighter beside each section heading, most when that heading is in view
+function boostAt(y,sy){let b=0;for(const [wy] of WP){const d=(y-wy)/240;if(d>-3&&d<3){const v=(wy-(sy+H*.45))/(H*.6);b+=Math.exp(-d*d)*(.35+.65*Math.exp(-v*v));}}return Math.min(1.2,b);}
+function size(){
+  const d=Math.min(devicePixelRatio||1,2);
+  W=innerWidth;H=innerHeight;DH=document.documentElement.scrollHeight;
+  cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
+  buildRiver();
+  const n=Math.min(3600,Math.round(END*W/520));
+  parts=Array.from({length:n},()=>{const o=gauss()*.55;return{y:Math.random()*END,o,r:Math.abs(o)<.35?Math.random()*1.4+.4:Math.random()*1+.2,c:Math.abs(o)<.2&&Math.random()<.4?PAL[0]:pick(),v:.15+Math.random()*.45,p:Math.random()*6.28}});
+  lines=Array.from({length:90},()=>({o:gauss()*.75,a:.04+Math.random()*.12,w:Math.random()<.2?1.2:.6,ph:Math.random()*6.28}));
+  fog=[];for(let y=0;y<END;y+=46){for(let k=0;k<3;k++)fog.push({y:y+Math.random()*46,o:gauss()*1.125,s:1.05+Math.random()*1.65,sq:.45+Math.random()*.4,a:.16+Math.random()*.20,ph:Math.random()*6.28,sp:.15+Math.random()*.35});}
+  fogL=[];for(let y=0;y<DH;y+=70){for(let k=0;k<2;k++)fogL.push({y:y+Math.random()*70,x:Math.pow(Math.random(),1.6)*.42,s:.14+Math.random()*.16,sq:.55+Math.random()*.4,a:.28+Math.random()*.27,ph:Math.random()*6.28,sp:.12+Math.random()*.25});}
+  // background stars spread over the whole page, in three depth layers, plus small clusters
+  const nd=Math.min(3200,Math.round(DH*W/1500));
+  dust=Array.from({length:nd},()=>{const big=Math.random()<.11;return{x:Math.random()*W,y:Math.random()*DH,z:1,r:big?Math.random()*1.4+1.4:Math.random()*1.1+.25,big,p:Math.random()*6.28,sp:.6+Math.random()*1.6,c:WARM[Math.floor(Math.random()*WARM.length)]}});
+  for(let k=0;k<Math.round(DH/700);k++){const gx=Math.random()*W,gy=Math.random()*DH,z=.8;for(let i=0;i<26;i++)dust.push({x:gx+gauss()*50,y:gy+gauss()*40,z,r:Math.random()*.9+.25,big:false,p:Math.random()*6.28,sp:1+Math.random(),c:WARM[Math.floor(Math.random()*WARM.length)]});}
+}
+function draw(t){
+  const sy=scrollY; cx.clearRect(0,0,W,H);
+  // scattered background stars
+  for(const s of dust){
+    let y=s.y-sy*s.z; y=((y%DH)+DH)%DH; if(y>H+20) continue;
+    const a=(.5+.3*(.5+.5*Math.sin(s.p)))*(.2+.8*dimAt(s.y));
+    cx.fillStyle=`rgba(${s.c},${a})`;cx.beginPath();cx.arc(s.x,y,s.r,0,6.283);cx.fill();
+    if(s.big){const R=s.r*10;const h=cx.createRadialGradient(s.x,y,0,s.x,y,R);h.addColorStop(0,`rgba(${s.c},${a*.8})`);h.addColorStop(.22,`rgba(${s.c},${a*.32})`);h.addColorStop(1,`rgba(${s.c},0)`);cx.fillStyle=h;cx.beginPath();cx.arc(s.x,y,R,0,6.283);cx.fill();cx.fillStyle=`rgba(255,250,235,${a})`;cx.beginPath();cx.arc(s.x,y,s.r*.75,0,6.283);cx.fill();
+}
+  }
+  cx.globalCompositeOperation='lighter';
+  // soft glowing core of the river: wide translucent strokes along the centre line
+  const yEnd=Math.min(H+60,END-sy);
+  const path=new Path2D();for(let y=-60;y<=yEnd;y+=16){const x=cxAt(y+sy);y===-60?path.moveTo(x,y):path.lineTo(x,y);}
+  // a soft warm light where the river passes each section heading
+  for(const [wy] of WP){const y=wy-sy;if(y<-300||y>H+300)continue;const x=cxAt(wy),R=hwAt(wy)*3.2+80;const v=(wy-(sy+H*.45))/(H*.6);const a=.10+.14*Math.exp(-v*v);
+    const g=cx.createRadialGradient(x,y,0,x,y,R);g.addColorStop(0,`rgba(255,226,170,${a})`);g.addColorStop(.4,`rgba(219,170,100,${a*.45})`);g.addColorStop(1,'rgba(219,170,100,0)');cx.fillStyle=g;cx.beginPath();cx.arc(x,y,R,0,6.283);cx.fill();}
+  cx.lineCap='round';cx.lineJoin='round';
+  cx.globalAlpha=.6*dimAt(sy+H*.5);for(const [k,col] of [[2.6,'rgba(150,105,60,.06)'],[1.7,'rgba(190,155,110,.07)'],[1.0,'rgba(230,212,180,.08)'],[.45,'rgba(250,240,222,.10)'],[.18,'rgba(255,255,255,.10)']]){cx.strokeStyle=col;cx.lineWidth=Math.max(hwAt(sy+H/2),W<=900?38:70)*k*2;cx.stroke(path);}cx.globalAlpha=1;
+  // deep blue mist on the left side
+  cx.globalCompositeOperation='source-over';
+  for(const f of fogL){
+    const R=W*f.s, y=f.y-sy*.85; if(y<-R||y>H+R) continue;
+    const x=f.x*W;
+    cx.globalAlpha=f.a*.9;
+    cx.drawImage(bpuff,x-R,y-R*f.sq,R*2,R*2*f.sq);
+  }
+  cx.globalAlpha=1;
+  // white mist drifting along the river
+  cx.globalCompositeOperation='screen';
+  for(const f of fog){
+    const y=f.y-sy; const hw=hwAt(f.y); const R=hw*f.s;
+    if(y<-R||y>H+R||f.y>END) continue;
+    const drift=0;
+    const x=cxAt(f.y)+f.o*hw+drift;
+    cx.globalAlpha=f.a*.28*dimAt(f.y);
+    cx.drawImage(puff,x-R,y-R*f.sq,R*2,R*2*f.sq);
+  }
+  cx.globalAlpha=1;cx.globalCompositeOperation='lighter';
+  // flowing strands
+  lines.forEach((l,li)=>{const keep=li%3===0;const yMax=keep?Math.min(H+20,END-sy):Math.min(H+20,DIMY-sy);if(yMax<-20)return;cx.strokeStyle=`rgba(240,225,200,${l.a*.6*(keep?dimAt(sy+H*.5):1)})`;cx.lineWidth=l.w;cx.beginPath();
+    for(let y=-20;y<=yMax;y+=14){const dy=y+sy;const x=cxAt(dy)+l.o*hwAt(dy)+Math.sin(dy/90+l.ph)*6;y===-20?cx.moveTo(x,y):cx.lineTo(x,y);}cx.stroke();});
+  // particles
+  for(const p of parts){
+    
+    if(!reduce){p.y+=p.v*.225; if(p.y>END) p.y-=END;}
+    const y=p.y-sy; if(y<-10||y>H+10) continue;
+    const dm=dimAt(p.y); if(dm<1&&p.p>6.28*(.35+.65*(dm-DIM)/(1-DIM))) continue;
+    const x=cxAt(p.y)+p.o*hwAt(p.y)+Math.sin(p.y/70+p.p)*4;
+    const b=boostAt(p.y,sy);
+    const tw=Math.min(1,.6*(.45+.55*(.5+.5*Math.sin(p.p*3)))*(1+1.1*b)*taper(p.y)*1.05*(.35+.65*dm));
+    const r=p.r*(1+.35*b);
+    cx.fillStyle=`rgba(${p.c},${tw})`;cx.beginPath();cx.arc(x,y,r,0,6.283);cx.fill();
+    if(r>1.3){cx.fillStyle=`rgba(${p.c},${tw*.18})`;cx.beginPath();cx.arc(x,y,r*3.2,0,6.283);cx.fill();}
+  }
+  cx.globalCompositeOperation='source-over';
+  if(!reduce) requestAnimationFrame(draw);
+}
+size(); addEventListener('resize',()=>{size(); if(reduce) draw(0); });
+addEventListener('load',()=>{size(); if(reduce) draw(0);});
+if('ResizeObserver' in window){let lastH=0;new ResizeObserver(()=>{const h=document.documentElement.scrollHeight;if(Math.abs(h-lastH)>40){lastH=h;size();if(reduce)draw(0);}}).observe(document.body);}
+addEventListener('scroll',()=>{ if(reduce) draw(0); },{passive:true});
+requestAnimationFrame(draw);
+
+/* parallax depth + gather: floating paintings drift apart, and gather around the pointer while it is held down */
+const layers=[...document.querySelectorAll('[data-depth]')];
+const floats=[...document.querySelectorAll('.float')];
+const movers=[...new Set([...layers,...floats])];
+movers.forEach(el=>{el._gx=0;el._gy=0;el._py=0;});
+function apply(el){el.style.transform=(el._gx||el._gy||el._py)?`translate3d(${el._gx.toFixed(1)}px,${(el._py+el._gy).toFixed(1)}px,0)`:'';}
+function para(){
+  for(const el of layers){
+    if(reduce||innerWidth<=900){el._py=0;}
+    else{const r=el.getBoundingClientRect();const mid=r.top+r.height/2-el._py-el._gy-innerHeight/2;el._py=-mid*parseFloat(el.dataset.depth)*.25;}
+    apply(el);
+  }
+}
+let held=false,downAt=0,releaseT=null,pressT=null,startXY=null;
+function gatherTo(x,y){
+  const vis=floats.filter(el=>{if(getComputedStyle(el).display==='none')return false;const r=el.getBoundingClientRect();return r.bottom>-200&&r.top<innerHeight+200;});
+  const n=vis.length; if(!n) return;
+  const R=Math.min(innerWidth,innerHeight)*(innerWidth<=900?.16:.12)+n*10;
+  vis.forEach((el,k)=>{
+    const r=el.getBoundingClientRect();
+    const t=getComputedStyle(el).transform, m=t&&t!=='none'?new DOMMatrix(t):{m41:0,m42:0};
+    const bx=r.left+r.width/2-m.m41, by=r.top+r.height/2-m.m42;
+    const a=k/n*6.283-1.4;
+    el._gx=x+Math.cos(a)*R-bx; el._gy=y+Math.sin(a)*R*.8-by; apply(el);
+  });
+}
+function scatter(){held=false;document.body.classList.add('g-anim');floats.forEach(el=>{el._gx=0;el._gy=0;apply(el);});setTimeout(()=>{if(!held)document.body.classList.remove('g-anim');},1300);}
+function start(x,y){held=true;downAt=performance.now();clearTimeout(releaseT);document.body.classList.add('g-anim','g-held');gatherTo(x,y);}
+function end(){clearTimeout(pressT);startXY=null;if(!held)return;document.body.classList.remove('g-held');const wait=Math.max(0,1100-(performance.now()-downAt));releaseT=setTimeout(scatter,wait);}
+if(false)addEventListener('pointerdown',e=>{
+  if(e.button>0||e.target.closest('a,button,input,textarea,select,.nav-shell'))return;
+  if(e.pointerType==='mouse'){e.preventDefault();start(e.clientX,e.clientY);}
+  else{startXY=[e.clientX,e.clientY];pressT=setTimeout(()=>start(e.clientX,e.clientY),320);}
+});
+addEventListener('pointermove',e=>{
+  if(startXY&&!held&&Math.hypot(e.clientX-startXY[0],e.clientY-startXY[1])>10){clearTimeout(pressT);startXY=null;}
+  if(held)gatherTo(e.clientX,e.clientY);
+});
+addEventListener('pointerup',end);addEventListener('pointercancel',end);addEventListener('blur',end);
+/* parallax and press-to-gather turned off: the page stays still */
+
+/* ===== 企劃：讀取 Blogger 上標了「企劃中」「已完結」的文章 =====
+   之後只要改 BLOG 成蘭的部落格網址；她發文時加上對應標籤，首頁就會自動更新。 */
+const PROJECTS = {
+  BLOG: SITE.blog || "https://liliumhandrawn.blogspot.com",
+  CALL: "徵人中",
+  ON: "企劃中",
+  DONE: "已完結",
+  MAX: 6
+};
+const SAMPLE_CALL = [
+  {title:"手繪卡片交換", date:"2026.11", img:"img/w9.jpg", sum:"徵求想收到一張手繪卡片的朋友，留言告訴我你最近的心情，我會畫一張送給你。", link:"#projects"}
+];
+const SAMPLE_ON = [
+  {title:"每月一張宇宙", date:"2026.11", img:"img/w20.jpg", sum:"每個月畫一張抽象畫，記錄當下的內在風景，並分享創作時的感受。", link:"#projects"},
+  {title:"三十天呼吸日記", date:"2026.12", img:"img/w3.jpg", sum:"每天睡前十分鐘的呼吸練習，記下身體和情緒的變化，歡迎一起加入。", link:"#projects"}
+];
+const SAMPLE_DONE = [
+  {title:"生日快樂計劃", date:"2019.03", img:"img/w2.jpg", sum:"徵求想收到手繪生日卡片的網友，送出小小的祝福。", link:"https://liliumhandrawn.blogspot.com/2019/03/blog-post_17.html", real:true},
+  {title:"易經六十四卦繪畫練習", date:"2019.09", img:"img/w21.jpg", sum:"", link:"#projects"}
+];
+const escH = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function parseEntry(e){
+  const html = (e.content||e.summary||{}).$t || "";
+  let img = (html.match(/<img[^>]+src="([^"]+)"/)||[])[1] || (e.media$thumbnail||{}).url || "";
+  img = img.replace(/\/s\d+(-c)?\//,'/s400-c/').replace(/=s\d+(-c)?$/,'=s400-c');
+  const txt = html.replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
+  const link = ((e.link||[]).find(l=>l.rel==='alternate')||{}).href || PROJECTS.BLOG;
+  const d = (e.published||{}).$t || "";
+  return {title:(e.title||{}).$t||"（未命名）", date:d.slice(0,7).replace('-','.'), img, sum:txt.slice(0,70)+(txt.length>70?'…':''), link};
+}
+function loadLabel(label){
+  return new Promise((ok,fail)=>{
+    const cb='__feed'+Math.random().toString(36).slice(2);
+    const sc=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();fail(new Error('timeout'));},6000);
+    function cleanup(){clearTimeout(timer);delete window[cb];sc.remove();}
+    window[cb]=data=>{cleanup();ok(((data.feed||{}).entry||[]).map(parseEntry));};
+    sc.onerror=()=>{cleanup();fail(new Error('blocked'));};
+    sc.src=`${PROJECTS.BLOG}/feeds/posts/default/-/${encodeURIComponent(label)}?alt=json-in-script&max-results=${PROJECTS.MAX}&callback=${cb}`;
+    document.head.appendChild(sc);
+  });
+}
+const ext = l => l.startsWith('#') ? '' : ' target="_blank" rel="noopener"';
+function renderProjects(call,on,done,sample){
+  const S = sample ? '<span class="sample">範例</span>' : '';
+  document.getElementById('recruit').hidden = !call.length;
+  document.getElementById('callCount').textContent = call.length ? call.length+' 個' : '';
+  document.getElementById('callList').innerHTML = call.map(p=>`
+    <a class="pcard" href="${escH(p.link)}"${ext(p.link)}>
+      <div class="pimg">${p.img?`<img src="${escH(p.img)}" alt="" loading="lazy">`:''}</div>
+      <span class="badge">徵人中</span>
+      <h4>${escH(p.title)}${p.real?'':S}</h4>
+      ${p.sum?`<p>${escH(p.sum)}</p>`:''}
+      <span class="go">我想參加 ${p.link.startsWith('#')?'→':'↗'}</span>
+    </a>`).join('');
+  document.getElementById('onCount').textContent = on.length ? on.length+' 個' : '';
+  document.getElementById('doneCount').textContent = done.length ? done.length+' 個' : '';
+  document.getElementById('onList').innerHTML = on.length ? on.map(p=>`
+    <a class="pcard" href="${escH(p.link)}"${ext(p.link)}>
+      <div class="pimg">${p.img?`<img src="${escH(p.img)}" alt="" loading="lazy">`:''}</div>
+      <span class="d">${escH(p.date)} 起</span>
+      <h4>${escH(p.title)}${p.real?'':S}</h4>
+      ${p.sum?`<p>${escH(p.sum)}</p>`:''}
+      <span class="go">看企劃 ${p.link.startsWith('#')?'→':'↗'}</span>
+    </a>`).join('') : '<p class="empty">目前沒有進行中的企劃，下一個正在醞釀。</p>';
+  document.getElementById('doneList').innerHTML = done.length ? done.map(p=>`
+    <li><a href="${escH(p.link)}"${ext(p.link)}>
+      <span class="dimg">${p.img?`<img src="${escH(p.img)}" alt="" loading="lazy">`:''}</span>
+      <span><span class="d">${escH(p.date)}</span><b>${escH(p.title)}${p.real?'':S}</b></span>
+    </a></li>`).join('') : '<li class="empty">還沒有完結的企劃。</li>';
+  const note=document.getElementById('feedNote');
+  note.hidden=!sample;
+  if(sample) note.innerHTML='<span class="sample" style="margin-left:0">範例</span>　預覽版讀不到部落格，先顯示範例。網站放上正式網址後，這裡會自動顯示部落格中標了「'+escH(PROJECTS.CALL)+'」「'+escH(PROJECTS.ON)+'」「'+escH(PROJECTS.DONE)+'」的文章。';
+}
+renderProjects(SAMPLE_CALL,SAMPLE_ON,SAMPLE_DONE,true);
+Promise.all([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PROJECTS.DONE)])
+  .then(([call,on,done])=>{ if(SITE.blog) renderProjects(call,on,done,false); })
+  .catch(()=>{/* keep samples */});
+
+/* 創作：每張畫連到 Lilium 創作部落格 */
+const ART=[
+ ["img/w4.jpg","作品 01","","https://liliumhandrawn.blogspot.com/","round glow-blue"],
+ ["img/w9.jpg","作品 02","","https://liliumhandrawn.blogspot.com/","blob1 glow-warm"],
+ ["img/w14.jpg","作品 03","","https://liliumhandrawn.blogspot.com/","blob2 glow-violet"],
+ ["img/w17.jpg","作品 04","","https://liliumhandrawn.blogspot.com/","round glow-warm"],
+ ["img/w25.jpg","作品 05","","https://liliumhandrawn.blogspot.com/","blob3 glow-violet"],
+ ["img/w33.jpg","作品 06","","https://liliumhandrawn.blogspot.com/","round glow-blue"],
+ ["img/w37.jpg","作品 07","","https://liliumhandrawn.blogspot.com/","blob2 glow-red"],
+ ["img/w48.jpg","作品 08","","https://liliumhandrawn.blogspot.com/","blob1 glow-red"]];
+document.getElementById('gallery').innerHTML=ART.map(([s,t,d,l,c],i)=>`<a class="drift" href="${l}" target="_blank" rel="noopener"><div class="orb ${c} bob ${['','d2','d3'][i%3]}"><img src="${s}" alt="蘭的畫作" loading="lazy"></div><span class="shade"><b>${escH(t)}</b><span>${d}</span></span></a>`).join('');
+
+/* 書寫 */
+const POSTS=[
+ ["2019.01","goodbye 2018","過去一年簡直是我人生裡的文藝復興元年。","https://liliumhandrawn.blogspot.com/2019/01/goodbye-2018.html"],
+ ["2018.11","二維生物","人們總以為，在時間軸線裡的自我是有著連續性的。","https://liliumhandrawn.blogspot.com/2018/11/blog-post_16.html"],
+ ["2018.09","辮子","將久未用的色鉛筆整理、削好，開啟一本新的本本。","https://liliumhandrawn.blogspot.com/2018/09/blog-post_2.html"]];
+document.getElementById('posts').innerHTML=POSTS.map(([d,t,s,l])=>`<li><a href="${l}" target="_blank" rel="noopener"><span class="d">${d}</span><span class="t">${escH(t)}</span><span class="s">${escH(s)}</span></a></li>`).join('');
+setTimeout(()=>{size(); if(reduce) draw(0);},300);
+
+
+/* 昴宿星團 Pleiades — drawn in code: blue-white stars with spikes, wrapped in a soft reflection nebula */
+(function(){
+  const c=document.getElementById('pleiades'); if(!c) return; const g=c.getContext('2d');
+  const S=[["Alcyone",0,0,2.9],["Atlas",-.64,.04,3.6],["Pleione",-.66,-.13,5.0],["Electra",.7,-.1,3.7],["Maia",.46,-.42,3.9],["Merope",.3,.2,4.2],["Taygeta",.58,-.66,4.3],["Celaeno",.84,-.36,5.4],["Asterope",.52,-.88,5.8]];
+  const faint=Array.from({length:70},()=>({x:(Math.random()-.5)*2.4,y:(Math.random()-.5)*1.9,r:Math.random()*.8+.2,p:Math.random()*6.28}));
+  const wisps=Array.from({length:26},()=>({x:(Math.random()-.4)*1.6,y:(Math.random()-.45)*1.3,a:Math.random()*Math.PI,l:.25+Math.random()*.5}));
+  let W,H,d;
+  function size(){d=Math.min(devicePixelRatio||1,2);W=c.clientWidth;H=c.clientHeight;c.width=W*d;c.height=H*d;g.setTransform(d,0,0,d,0,0);}
+  const P=(x,y)=>[W*.5+x*W*.3,H*.55+y*H*.42];
+  function draw(t){
+    g.clearRect(0,0,W,H);
+    g.globalCompositeOperation='lighter';
+    // reflection nebula: blue haze around the bright stars
+    for(const s of S){const [x,y]=P(s[1],s[2]);const R=W*(.34-(s[3]-2.9)*.04);const r=g.createRadialGradient(x,y,0,x,y,R);r.addColorStop(0,'rgba(201,87,87,.30)');r.addColorStop(.5,'rgba(170,62,62,.12)');r.addColorStop(1,'rgba(150,50,50,0)');g.fillStyle=r;g.beginPath();g.arc(x,y,R,0,6.283);g.fill();}
+    g.lineCap='round';
+    for(const w of wisps){const [x,y]=P(w.x,w.y);const R=w.l*W*.22;g.save();g.translate(x,y);g.rotate(w.a);g.scale(1.8,.55);const r2=g.createRadialGradient(0,0,0,0,0,R);r2.addColorStop(0,'rgba(214,110,100,.07)');r2.addColorStop(1,'rgba(214,110,100,0)');g.fillStyle=r2;g.beginPath();g.arc(0,0,R,0,6.283);g.fill();g.restore();}
+    for(const f of faint){const [x,y]=P(f.x,f.y);const a=.25+.35*(.5+.5*Math.sin(t/900+f.p));g.fillStyle=`rgba(245,215,205,${a})`;g.beginPath();g.arc(x,y,f.r,0,6.283);g.fill();}
+    for(const s of S){const [x,y]=P(s[1],s[2]);const b=Math.max(.35,(6.2-s[3])/3.3);const tw=1;const r=1.4+b*3;
+      const h=g.createRadialGradient(x,y,0,x,y,r*6);h.addColorStop(0,`rgba(255,236,228,${.9*tw})`);h.addColorStop(.15,`rgba(224,120,110,${.45*tw})`);h.addColorStop(1,'rgba(201,87,87,0)');g.fillStyle=h;g.beginPath();g.arc(x,y,r*6,0,6.283);g.fill();
+      g.fillStyle='#FFF1EC';g.beginPath();g.arc(x,y,r*.7,0,6.283);g.fill();
+      const L=r*(5+4*b)*tw;g.strokeStyle=`rgba(236,170,160,${.55*b*tw})`;g.lineWidth=.8;g.beginPath();g.moveTo(x-L,y);g.lineTo(x+L,y);g.moveTo(x,y-L);g.lineTo(x,y+L);g.stroke();}
+    g.globalCompositeOperation='source-over';
+  }
+  size(); draw(0); addEventListener('resize',()=>{size();draw(0);});
+})();
+
+
+/* one-time gentle fade-in as each section scrolls into view */
+(function(){
+  const els=[...document.querySelectorAll('main > section')];
+  if(reduce||!('IntersectionObserver' in window)) return;
+  els.forEach(el=>el.classList.add('reveal'));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  els.forEach(el=>io.observe(el));
+})();
+
+/* menu */
+const mb=document.getElementById('menuBtn'), lk=document.getElementById('links');
+mb.addEventListener('click',()=>{const o=lk.classList.toggle('open'); mb.setAttribute('aria-expanded',String(o));});
+lk.addEventListener('click',e=>{if(e.target.closest('a')){lk.classList.remove('open');mb.setAttribute('aria-expanded','false');}});
+</script>
