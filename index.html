@@ -218,10 +218,6 @@ footer a.donate:hover{color:var(--star)}
 /* orbit: project + writing */
 .orbit{position:relative;max-width:1180px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 120px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,100px);align-items:start}
 .orbit > *{min-width:0}
-#writing{grid-template-columns:1fr;gap:56px}
-#writing > .shade{max-width:760px}
-#writing .project{padding-top:0;margin-left:30px}
-#writing .project > div{margin-top:0!important}
 .project{position:relative;padding-top:20px}
 .project .orb{position:relative;width:min(100%,360px);aspect-ratio:1}
 .project .ring{position:absolute;left:-30px;top:-10px;width:min(calc(100% + 60px),420px);aspect-ratio:1;border:1px dashed rgba(219,199,66,.35);border-radius:50%;pointer-events:none}
@@ -438,8 +434,8 @@ body{margin:0}
       <li><a href="#about">關於我</a></li>
       <li><a href="#explore">探索與服務</a></li>
       <li><a href="#projects">企劃</a></li>
-      <li><a href="#art">創作</a></li>
       <li><a href="#writing">書寫</a></li>
+      <li><a href="#art">創作</a></li>
       <li><a href="#signal">聯絡</a></li>
     </ul>
     <span class="social"><a href="https://www.facebook.com/taintedream" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z" fill="currentColor"/></svg></a><a data-ig href="https://www.instagram.com/taintedream.with.lan/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a><a href="https://www.threads.com/@taintedream.with.lan" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.6"/><path d="M15.6 9v4.2a2.3 2.3 0 0 0 4.6 0V12a8.2 8.2 0 1 0-3.2 6.5"/></svg></a></span>
@@ -551,6 +547,26 @@ body{margin:0}
     <p class="feed-note" id="feedNote" hidden></p>
   </section>
 
+  <!-- 書寫 -->
+  <section class="orbit" id="writing">
+    <div class="project">
+      <div style="position:relative;margin-top:28px">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="orb round glow-warm" style="position:relative" data-depth=".15"><img src="img/w31.jpg" alt="蘭的禪繞畫：線條與花紋旋向中心的貝殼"></div>
+      </div>
+    </div>
+    <div class="shade">
+      <span class="eyebrow sec-title">書寫</span>
+      <h2 class="big">部落格精選</h2>
+      <p class="lede">完整的文章都在我的部落格，這裡挑幾篇想讓你先讀的。</p>
+      <ul class="posts" id="posts"></ul>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px">
+        <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">前往部落格 ↗</a>
+        <span id="postsNote" style="font-size:13px;color:var(--soft)" hidden></span>
+      </div>
+    </div>
+  </section>
+
   <!-- 創作 -->
   <section class="sec" id="art" aria-labelledby="c-title">
     <div class="orb round float sec-float art-dot" aria-hidden="true" style="right:2%;top:40px;width:120px"><img src="img/w39.jpg" alt=""></div>
@@ -567,25 +583,6 @@ body{margin:0}
     </div>
   </section>
 
-  <!-- 書寫 -->
-  <section class="orbit" id="writing">
-    <div class="shade">
-      <span class="eyebrow sec-title">書寫</span>
-      <h2 class="big">部落格精選</h2>
-      <p class="lede">完整的文章都在我的部落格，這裡挑幾篇想讓你先讀的。</p>
-      <ul class="posts" id="posts"></ul>
-      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px">
-        <a class="pill ghost sm" data-blog href="#writing" target="_blank" rel="noopener">前往部落格 ↗</a>
-        <span id="postsNote" style="font-size:13px;color:var(--soft)" hidden></span>
-      </div>
-    </div>
-    <div class="project">
-      <div style="position:relative;margin-top:28px">
-        <div class="ring" aria-hidden="true"></div>
-        <div class="orb round glow-warm" style="position:relative" data-depth=".15"><img src="img/w31.jpg" alt="蘭的禪繞畫：線條與花紋旋向中心的貝殼"></div>
-      </div>
-    </div>
-  </section>
 
   <!-- 聯絡 -->
   <section class="signal" id="signal">
@@ -658,7 +655,7 @@ function buildRiver(){
   const ht=document.querySelector('.hero-title'); TOPY=top(ht)+ht.offsetHeight; DIMY=Math.max(TOPY+200,hb);
   pts.push([0,mob?.86:.82]); pts.push([hb*.55,mob?.9:.78]);
   WP=[];
-  const secs=[['intro',document.querySelector('main > section.sec:not([id])')],['about',document.getElementById('about')],['explore',document.getElementById('explore')],['projects',document.getElementById('projects')],['art',document.getElementById('art')],['writing',document.getElementById('writing')]];
+  const secs=[['intro',document.querySelector('main > section.sec:not([id])')],['about',document.getElementById('about')],['explore',document.getElementById('explore')],['projects',document.getElementById('projects')],['writing',document.getElementById('writing')],['art',document.getElementById('art')]];
   for(const [k,el] of secs){ if(!el) continue; const h=el.querySelector('h2')||el; const y=top(h)+h.offsetHeight/2; const x=RIVER[k][mob?1:0]; pts.push([y,x]); WP.push([y,x]); }
   const sig=document.getElementById('signal'); const sy0=top(sig)+sig.offsetHeight*.5; pts.push([sy0,.5]); WP.push([sy0,.5]); END=sy0;
   pts.push([sy0+400,.5]);
@@ -804,17 +801,10 @@ const PROJECTS = {
   MAX: 6,
   MAX_DONE: 20
 };
-const SAMPLE_CALL = [
-  {title:"手繪卡片交換", date:"2026.11", img:"img/w9.jpg", sum:"徵求想收到一張手繪卡片的朋友，留言告訴我你最近的心情，我會畫一張送給你。", link:"#projects"}
-];
-const SAMPLE_ON = [
-  {title:"每月一張宇宙", date:"2026.11", img:"img/w20.jpg", sum:"每個月畫一張抽象畫，記錄當下的內在風景，並分享創作時的感受。", link:"#projects"},
-  {title:"三十天呼吸日記", date:"2026.12", img:"img/w3.jpg", sum:"每天睡前十分鐘的呼吸練習，記下身體和情緒的變化，歡迎一起加入。", link:"#projects"}
-];
-const SAMPLE_DONE = [
-  {title:"生日快樂計劃", date:"2019.03", img:"img/w2.jpg", sum:"徵求想收到手繪生日卡片的網友，送出小小的祝福。", link:"https://liliumhandrawn.blogspot.com/2019/03/blog-post_17.html", real:true},
-  {title:"易經六十四卦繪畫練習", date:"2019.09", img:"img/w21.jpg", sum:"", link:"#projects"}
-];
+/* 部落格文章快照（2026/11/22）：網頁先顯示這些，讀到部落格後自動換成最新內容 */
+const SNAP_CALL = [{"title": "💌蘭小姐信箱💌", "date": "2026.09", "img": "", "sum": "最近申請郵政信箱，我留了一顆很小的印章。它是小時候父母替我開戶使用的印章，幾年前，母親才把它交給我。", "link": "https://blog.taintedream.tw/2026/09/blog-post_04.html", "real": true}];
+const SNAP_ON = [{"title": "📮🚂🌺 花曆交換計畫 👉🏻", "date": "2026.10", "img": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiA1kuyOWGjjDHVtHemV9CTZ3KZmQYOKKL2sVjNYpIoywfL5YaqkMtR90Tkba8b8GS1INlARaMEeNbbrWtWigYuXwEj2zonUtXNmBAqfLGtPQZeDwsFp5UqlZE9YrWotu4wwKpRrVkEkPRqFvaBXU5JtE73Y9WrNhODBWmPV2Mr7spZSlVzOW_th4pVI3in/s400-c/IMG_E9889.JPG", "sum": "早安！世界明信片日快樂 💌想在今天，開啟一個關於生日、花與明信片的小小交換企劃 🌷", "link": "https://blog.taintedream.tw/2026/10/blog-post_01.html", "real": true}];
+const SNAP_DONE = [{"title": "✨ 21天感恩練習：用感恩，看見世界和自己的光 ✨", "date": "2025.03", "img": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhROPJYU_GBtC32TquF7Qorp1G1ZJIof7897pGBX_U3dhZZdKVQR3q2M4LjT_G_a98dlN5f7M58XKSR_CzXW04RAZwpGuT1S8TSq1INLXct80VcKKYZroYmOvbH-cmsLlN8rAfvEcQsi8p-Au5a8rh3KgvLkbzMU82ZztyDYgb92Vkcd7dHm87HZ5FH09E/s400-c/E42C3017-8758-4910-953B-3EDB6E91A219.jpeg", "sum": "", "link": "https://blog.taintedream.tw/2025/03/21.html", "real": true}, {"title": "日更21：用創作迎接人類圖新年！", "date": "2024.12", "img": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBOV6Ln44HVTw9a-ybJoPusvwNXSTRAChfbBu74rUbDwQgpl926AvaqCKxF7tg6NE9kz-BORqo6u3i2M1M8Mx50iDKr0c2UZffMuc6MGE24BELS9Jyeo7WMN1kOC4laH6pRdUVDn-kmsDijxRZ2LddPs8TbULyH-pWlh2-3tB5lE6ZKha5YxVgXnQeHsE3/s400-c/45515379-130B-44F1-A34A-3881AA0DCA29.jpg", "sum": "", "link": "https://blog.taintedream.tw/2024/12/21.html", "real": true}];
 const escH = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function parseEntry(e){
   const html = (e.content||e.summary||{}).$t || "";
@@ -869,20 +859,11 @@ function renderProjects(call,on,done,sample){
   note.hidden=!sample;
   if(sample) note.innerHTML='<span class="sample" style="margin-left:0">範例</span>　預覽版讀不到部落格，先顯示範例。網站放上正式網址後，這裡會自動顯示部落格中標了「'+escH(PROJECTS.CALL)+'」「'+escH(PROJECTS.ON)+'」「'+escH(PROJECTS.DONE)+'」的文章。';
 }
-/* 正式網站（taintedream.tw 等）不顯示範例；只有預覽版讀不到部落格時才顯示範例 */
-const LIVE = /(^|\.)taintedream\.tw$|pages\.dev$|workers\.dev$|github\.io$/.test(location.hostname);
-if(!LIVE) renderProjects(SAMPLE_CALL,SAMPLE_ON,SAMPLE_DONE,true);
+renderProjects(SNAP_CALL,SNAP_ON,SNAP_DONE,false);
 Promise.allSettled([loadLabel(PROJECTS.CALL),loadLabel(PROJECTS.ON),loadLabel(PROJECTS.DONE,PROJECTS.MAX_DONE)])
   .then(r=>{
-    if(r.every(x=>x.status!=="fulfilled")){
-      if(LIVE){
-        renderProjects([],[],[],false);
-        const note=document.getElementById('feedNote'); note.hidden=false;
-        note.innerHTML='暫時讀不到部落格文章，請直接到 <a href="'+escH(PROJECTS.BLOG)+'" target="_blank" rel="noopener" style="color:var(--mustard)">部落格</a> 查看。';
-      }
-      return; /* 預覽版：保留範例 */
-    }
-    const v=r.map(x=>x.status==="fulfilled"?x.value:[]);
+    if(r.every(x=>x.status!=="fulfilled")) return; /* 讀不到部落格：保留快照 */
+    const v=r.map((x,i)=>x.status==="fulfilled"?x.value:[SNAP_CALL,SNAP_ON,SNAP_DONE][i]);
     renderProjects(v[0],v[1],v[2],false);
   });
 
@@ -899,22 +880,17 @@ const ART=[
 document.getElementById('gallery').innerHTML=ART.map(([s,t,d,l,c],i)=>`<a class="drift" href="${l}" target="_blank" rel="noopener"><div class="orb ${c} bob ${['','d2','d3'][i%3]}"><img src="${s}" alt="蘭的畫作〈${escH(t)}〉" loading="lazy"></div><span class="shade"><b>${escH(t)}</b><span>${d}</span></span></a>`).join('');
 
 /* 書寫 */
-const POSTS=[
- ["2019.01","goodbye 2018","過去一年簡直是我人生裡的文藝復興元年。","https://liliumhandrawn.blogspot.com/2019/01/goodbye-2018.html"],
- ["2018.11","二維生物","人們總以為，在時間軸線裡的自我是有著連續性的。","https://liliumhandrawn.blogspot.com/2018/11/blog-post_16.html"],
- ["2018.09","辮子","將久未用的色鉛筆整理、削好，開啟一本新的本本。","https://liliumhandrawn.blogspot.com/2018/09/blog-post_2.html"]];
+const POSTS=[["2026.10.26", "轉換的觀看位置，不變的人生主題——從沈伯洋的南北交點回看人生中場", "上一篇，我從沈伯洋與幾位同樣擁有「左角度交叉之分離」的名人開始，談我怎麼理解人類圖裡的輪迴交叉。", "https://blog.taintedream.tw/2026/10/blog-post_26.html"], ["2026.10.26", "同一個輪迴交叉的不同風景——從沈泊洋與幾位名人的人類圖談起", "最近看到網路上開始有人討論沈伯洋的人類圖。比起猜他的類型、權威或人生角色，我第一個留意的，反而是他的輪迴交叉。", "https://blog.taintedream.tw/2026/10/blog-post.html"], ["2026.10.03", "預約了代觀元辰宮，結果我沒有元辰宮???!!", "幾年前在人生很迷惘的時候，聽妹妹推薦預約了一個代觀元辰宮。排了兩年，終於輪到我啦～", "https://blog.taintedream.tw/2026/10/blog-post_03.html"], ["2026.07.02", "《臣服實驗》讀後心得｜不只是臣服，我看見那片始終沒有離開的森林", "《臣服實驗》是 Michael A. Singer 的自傳式作品，記錄他從一位隱居森林、專注修行的人，意外走入創業。", "https://blog.taintedream.tw/2026/07/blog-post.html"], ["2026.02.17", "走在一條未定義的路上——我的 2025 年度回顧", "我的 2025 不是突破的一年，也不是歸位的一年，而是持續調整節奏的一年。年初的時候，我其實很熱血。", "https://blog.taintedream.tw/2026/02/2025.html"]];
 function renderPosts(list,sample){
   document.getElementById('posts').innerHTML=list.map(([d,t,s,l])=>`<li><a href="${escH(l)}" target="_blank" rel="noopener"><span class="d">${escH(d)}</span><span class="t">${escH(t)}${sample?'<span class="sample">範例</span>':''}</span><span class="s">${escH(s)}</span></a></li>`).join('');
 }
 /* 書寫：抓文章部落格中標了「featured」的文章（最多 5 篇，新到舊） */
 const FEATURED_LABEL="featured";
-if(!LIVE) renderPosts(POSTS,true);
+renderPosts(POSTS,false);
 loadLabel(FEATURED_LABEL,5).then(list=>{
-  const note=document.getElementById('postsNote');
-  if(!list.length){ if(LIVE){renderPosts([],false); note.hidden=false; note.textContent='精選文章整理中，先到部落格逛逛吧。';} return; }
-  renderPosts(list.map(p=>[p.date,p.title,p.sum.replace(/…$/,'').slice(0,40)+(p.sum.length>40?'…':''),p.link]),false);
-  note.hidden=true;
-}).catch(()=>{ if(LIVE){ const note=document.getElementById('postsNote'); note.hidden=false; note.textContent='暫時讀不到部落格文章，請直接前往部落格。'; } });
+  if(!list.length) return;
+  renderPosts(list.map(p=>[p.date,p.title,p.sum.replace(/…$/,'').slice(0,48)+(p.sum.length>48?'…':''),p.link]),false);
+}).catch(()=>{/* 讀不到：保留快照 */});
 setTimeout(()=>{size(); if(reduce) draw(0);},300);
 
 
